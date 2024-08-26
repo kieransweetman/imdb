@@ -7,17 +7,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="pays")
+@Table(name = "pays")
 public class Pays {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String url;
-	
+
 	private String nom;
-	
+
 	private String abreviation;
 
 	public Pays() {
@@ -67,6 +67,5 @@ public class Pays {
 	public String toString() {
 		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + "]";
 	}
-	
-	
+
 }
