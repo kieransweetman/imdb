@@ -1,43 +1,33 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 @Entity
+@Table(name = "lieu")
 public class Lieu {
 
-    @Id
+    @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
+    private String nom;
 
-    private String ville;
-
-    // Relation avec Realisateur (un lieu peut être le lieu de naissance de plusieurs réalisateurs)
-    @OneToMany(mappedBy = "lieuNaissance")
-    private List<Realisateur> realisateurs;
-
-    // Getters et setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getVille() {
-        return ville;
+    public String getNom() {
+        return nom;
     }
 
-    public void setVille(String ville) {
-        this.ville = ville;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public List<Realisateur> getRealisateurs() {
-        return realisateurs;
-    }
-
-    public void setRealisateurs(List<Realisateur> realisateurs) {
-        this.realisateurs = realisateurs;
-    }
 }

@@ -1,37 +1,57 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.*;
-import java.util.List;
+import java.time.Year;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "film")
 public class Film {
 
-    @Id
+    @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String nom;
-
     private String resume;
-
+    private float rating;
     private String langue;
-
-    private Integer annee;
-
-    private Double rating;
-
+    private Year annee;
     private String url;
 
-    // ManyToMany ilişkiyi tanımlıyoruz
-    @ManyToMany(mappedBy = "films")
-    private List<Realisateur> realisateurs;
+    @ManyToOne
+    @JoinColumn(name = "pays_id", nullable = false)
+    private Pays pays;
 
-    // Getters and Setters
-    public Long getId() {
+    public Film(String nom, String resume, float rating, String langue, Year annee, String url) {
+        this.nom = nom;
+        this.resume = resume;
+        this.rating = rating;
+        this.langue = langue;
+        this.annee = annee;
+        this.url = url;
+    }
+
+    public Film() {
+        super();
+    }
+
+    @Override
+    public String toString() {
+        return "Film [id=" + id + ", nom=" + nom + ", resume=" + resume + ", rating=" + rating + ", langue=" + langue
+                + ", annee=" + annee + ", url=" + url + "]";
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,6 +71,14 @@ public class Film {
         this.resume = resume;
     }
 
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
     public String getLangue() {
         return langue;
     }
@@ -59,20 +87,12 @@ public class Film {
         this.langue = langue;
     }
 
-    public Integer getAnnee() {
+    public Year getAnnee() {
         return annee;
     }
 
-    public void setAnnee(Integer annee) {
+    public void setAnnee(Year annee) {
         this.annee = annee;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
     }
 
     public String getUrl() {
@@ -83,11 +103,12 @@ public class Film {
         this.url = url;
     }
 
-    public List<Realisateur> getRealisateurs() {
-        return realisateurs;
+    public Pays getPays() {
+        return pays;
     }
 
-    public void setRealisateurs(List<Realisateur> realisateurs) {
-        this.realisateurs = realisateurs;
+    public void setPays(Pays pays) {
+        this.pays = pays;
     }
+
 }
