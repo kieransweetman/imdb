@@ -24,9 +24,9 @@ public class Film {
     private Year annee;
     private String url;
 
-    // @ManyToOne
-    // @JoinColumn(nom = "pays_id", nullable = false)
-    // private Pays pays;
+    @ManyToOne
+    @JoinColumn(name = "pays_id", nullable = false)
+    private Pays pays;
 
     public Film(String nom, String resume, float rating, String langue, Year annee, String url) {
         this.nom = nom;
@@ -103,12 +103,12 @@ public class Film {
         this.url = url;
     }
 
-    // public Pays getPays() {
-    // return pays;
-    // }
+    public Pays getPays() {
+        return pays;
+    }
 
-    // public void setPays(Pays pays) {
-    // this.pays = pays;
-    // }
+    public void setPays(Pays pays) {
+        this.pays = pays;
+    }
 
 }
