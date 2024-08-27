@@ -1,7 +1,9 @@
 package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MapsId;
@@ -9,7 +11,7 @@ import jakarta.persistence.MapsId;
 @Entity
 public class Role {
 
-    @Embedded
+    @EmbeddedId
     private RoleId id;
 
     @ManyToMany
@@ -19,7 +21,11 @@ public class Role {
 
     @ManyToMany
     @MapsId("acteurid")
-    @JoinColumn(name = "id_acteur")
+    @JoinTable(
+        name = "Acteur", 
+        joinColumns = @JoinColumn(name = "acteur_id"), 
+        inverseJoinColumns = @JoinColumn(name = "casting_id") 
+    )
     private Acteur acteur;
 
     private String personnage;
