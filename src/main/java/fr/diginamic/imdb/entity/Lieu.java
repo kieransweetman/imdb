@@ -48,4 +48,21 @@ public class Lieu {
         this.nom = nom;
     }
 
+	public Pays getPays() {
+		return pays;
+	}
+
+	public void setPays(Pays pays) {
+		this.pays = pays;
+	}
+
+	@Override
+	public String toString() {
+		return "Lieu [id=" + id + ", nom=" + nom + ", pays=" + pays + "]";
+	}
+
+    
+    
+    
+    
 }

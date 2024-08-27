@@ -74,11 +74,24 @@ public class Pays {
 	public void setAbreviation(String abreviation) {
 		this.abreviation = abreviation;
 	}
+	
+	
+
+	public List<Lieu> getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(List<Lieu> lieu) {
+		this.lieu = lieu;
+	}
 
 	@Override
 	public String toString() {
-		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + "]";
+		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + ", lieu=" + lieu
+				+ "]";
 	}
+
+	
 	
 	
 }
