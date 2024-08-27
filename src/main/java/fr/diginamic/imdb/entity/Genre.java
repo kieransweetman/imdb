@@ -18,9 +18,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "Genre")
 public class Genre {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idGenre;
+    private Long id;
 
     @Column(unique = true)
     private String nom;
@@ -28,17 +29,17 @@ public class Genre {
     public Genre() {
     }
 
-    public Genre(Long idGenre, String nom) {
-        this.idGenre = idGenre;
+    public Genre(Long id, String nom) {
+        this.id = id;
         this.nom = nom;
     }
 
-    public Long getIdGenre() {
-        return idGenre;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdGenre(Long idGenre) {
-        this.idGenre = idGenre;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNom() {
