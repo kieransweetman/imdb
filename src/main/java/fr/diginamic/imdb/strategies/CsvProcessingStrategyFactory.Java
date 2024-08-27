@@ -1,5 +1,8 @@
 package fr.diginamic.imdb.strategies;
 
+/**
+ * factory that will return the correct strategy
+ */
 public class CsvProcessingStrategyFactory {
     public static CsvProcessingStrategy getStrategyForFile(String csvFilePath) {
         if (csvFilePath.contains("films")) {
@@ -19,6 +22,3 @@ public class CsvProcessingStrategyFactory {
         }
     }
 }
-
-
-

@@ -23,7 +23,15 @@ public class ImdbApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// List of CSV file paths to parse
-		List<String> csvFilePaths = Arrays.asList();
+		List<String> csvFilePaths = Arrays.asList(
+				"src/main/resources/data/acteurs.csv",
+				"src/main/resources/data/castingPrincipal.csv",
+				"src/main/resources/data/films.csv",
+				"src/main/resources/data/pays.csv",
+				"src/main/resources/data/film_realisateurs.csv",
+				"src/main/resources/data/realisateurs.csv",
+				"src/main/resources/data/roles.csv");
+
 		imdbCsvParser.parseFiles(csvFilePaths);
 	}
 
