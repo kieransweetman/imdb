@@ -4,11 +4,11 @@
  */
 package fr.diginamic.imdb.entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -16,23 +16,23 @@ import jakarta.persistence.Table;
  * @author mattb
  */
 
-
-import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="Acteur")
+@Table(name = "Acteur")
 public class Acteur {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String identite;
 
     private Float taille;
 
     private String url;
+
+    private Set<Role> roles;
 
     // Relations avec d'autres entités
     @OneToMany(mappedBy = "acteur")

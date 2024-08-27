@@ -29,6 +29,10 @@ public class Film {
     private Year annee;
     private String url;
 
+    @ManyToMany
+    @JoinTable(name = "film_genre", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> genres;
+
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tourner> tournages;
 
@@ -109,6 +113,14 @@ public class Film {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<Genre> getGenre() {
+        return genres;
+    }
+
+    public void setGenre(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public Pays getPays() {
