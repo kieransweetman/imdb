@@ -14,25 +14,41 @@ import jakarta.persistence.Table;
  *
  * @author mattb
  */
+
+
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="Acteur")
 public class Acteur {
+
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id_Acteur")
     private Long id;
+
+    @Column(nullable = false)
     private String identite;
-    private float taille;
+
+    private Integer taille;
+
     private String url;
 
-    public Acteur() {
-    }
+    // Relations avec d'autres entités
+    @OneToMany(mappedBy = "acteur")
+    private Set<CastingPrincipal> castingPrincipals = new HashSet<>();
 
-    public Acteur(Long id, String identite, float taille, String url) {
-        this.id = id;
+    @OneToMany(mappedBy = "acteur")
+    private Set<Role> roles = new HashSet<>();
+
+    public Acteur() {}
+
+    public Acteur(String identite, Integer taille, String url) {
         this.identite = identite;
         this.taille = taille;
         this.url = url;
-        
     }
 
     public Long getId() {
@@ -51,11 +67,11 @@ public class Acteur {
         this.identite = identite;
     }
 
-    public float getTaille() {
+    public Integer getTaille() {
         return taille;
     }
 
-    public void setTaille(float taille) {
+    public void setTaille(Integer taille) {
         this.taille = taille;
     }
 
@@ -66,6 +82,20 @@ public class Acteur {
     public void setUrl(String url) {
         this.url = url;
     }
-}
 
-    
+    public Set<CastingPrincipal> getCastingPrincipals() {
+        return castingPrincipals;
+    }
+
+    public void setCastingPrincipals(Set<CastingPrincipal> castingPrincipals) {
+        this.castingPrincipals = castingPrincipals;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+}
