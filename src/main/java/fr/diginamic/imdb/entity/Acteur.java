@@ -38,6 +38,9 @@ public class Acteur {
     @OneToMany(mappedBy = "acteur")
     private Set<CastingPrincipal> castingPrincipals = new HashSet<>();
 
+    @OneToMany(mappedBy = "acteur")
+    private Set<Role> roles= new HashSet<>();
+
     public Acteur(Integer id, String identite, Float taille, String url) {
         this.id = id;
         this.identite = identite;
@@ -84,6 +87,13 @@ public class Acteur {
     public void setCastingPrincipals(Set<CastingPrincipal> castingPrincipals) {
         this.castingPrincipals = castingPrincipals;
     }
+    
+
+    @Override
+    public String toString() {
+        return "Acteur [id=" + id + ", identite=" + identite + ", taille=" + taille + ", url=" + url
+                + ", castingPrincipals=" + castingPrincipals + "]";
+    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -92,4 +102,6 @@ public class Acteur {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    
 }
