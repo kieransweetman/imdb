@@ -26,7 +26,7 @@ public class Acteur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    
     private Long id;
 
     @Column(nullable = false)
