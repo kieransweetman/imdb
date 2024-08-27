@@ -1,0 +1,19 @@
+package fr.diginamic.imdb.strategies;
+
+public class CsvProcessingStrategyFactory {
+    public static CsvProcessingStrategy getStrategyForFile(String csvFilePath) {
+        if (csvFilePath.contains("films")) {
+            return new FilmsStrategy();
+        } else if (csvFilePath.contains("acteurs")) {
+            return new ActeurStrategy();
+        } else if (csvFilePath.contains("roles")) {
+            return new RoleStrategy();
+        } else if (csvFilePath.contains("pays")) {
+            return new PaysStrategy();
+        } else if (csvFilePath.contains("realisateurs")) {
+            return new RealisateurStrategy();
+        } else if (csvFilePath.contains("genres")) {
+            return new GenreStrategy();
+        }
+    }
+}
