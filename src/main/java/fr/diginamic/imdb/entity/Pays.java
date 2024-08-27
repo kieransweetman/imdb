@@ -1,5 +1,6 @@
 package fr.diginamic.imdb.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Pays {
 
 	private String url;
 
+	@Column(unique = true)
 	private String nom;
 
 	private String abreviation;

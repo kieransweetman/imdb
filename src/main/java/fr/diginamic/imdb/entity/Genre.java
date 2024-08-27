@@ -4,6 +4,7 @@
  */
 package fr.diginamic.imdb.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,11 +16,13 @@ import jakarta.persistence.Table;
  * @author mattb
  */
 @Entity
-@Table(name="Genre")
+@Table(name = "Genre")
 public class Genre {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idGenre;
+
+    @Column(unique = true)
     private String nom;
 
     public Genre() {
@@ -45,6 +48,5 @@ public class Genre {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
-    
+
 }
