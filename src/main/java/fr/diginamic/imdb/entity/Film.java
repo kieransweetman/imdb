@@ -4,6 +4,7 @@ import java.time.Year;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +26,9 @@ public class Film {
     private String nom;
     private String resume;
     private float rating;
-    private String langue;
+
+    @Embedded
+    private Langue langue;
     private Year annee;
     private String url;
 
@@ -40,7 +43,7 @@ public class Film {
     @JoinColumn(name = "pays_id", nullable = false)
     private Pays pays;
 
-    public Film(String nom, String resume, float rating, String langue, Year annee, String url) {
+    public Film(String nom, String resume, float rating, Langue langue, Year annee, String url) {
         this.nom = nom;
         this.resume = resume;
         this.rating = rating;
@@ -91,11 +94,11 @@ public class Film {
         this.rating = rating;
     }
 
-    public String getLangue() {
+    public Langue getLangue() {
         return langue;
     }
 
-    public void setLangue(String langue) {
+    public void setLangue(Langue langue) {
         this.langue = langue;
     }
 
