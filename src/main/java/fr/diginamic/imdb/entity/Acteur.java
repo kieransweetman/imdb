@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Acteur")
+@Table(name = "acteur")
 public class Acteur {
 
     @Id

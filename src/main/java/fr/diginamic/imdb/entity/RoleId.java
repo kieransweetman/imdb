@@ -7,32 +7,31 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class RoleId implements Serializable {
 
-    private Long filmId;
-    private Long acteurId;
+    private Integer filmId;
+    private Integer acteurId;
 
     public RoleId() {
     }
 
-    public RoleId(Long filmId, Long acteurId) {
+    public RoleId(Integer filmId, Integer acteurId) {
         this.filmId = filmId;
         this.acteurId = acteurId;
     }
 
-    public Long getFilmId() {
+    public Integer getFilmId() {
         return filmId;
     }
 
-    public void setFilmId(Long filmId) {
+    public void setFilmId(Integer filmId) {
         this.filmId = filmId;
     }
 
-    public Long getActeurId() {
+    public Integer getActeurId() {
         return acteurId;
     }
 
-    public void setActeurId(Long acteurId) {
+    public void setActeurId(Integer acteurId) {
         this.acteurId = acteurId;
     }
 
-      
 }

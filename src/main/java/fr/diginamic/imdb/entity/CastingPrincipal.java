@@ -1,10 +1,9 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 
 @Entity
@@ -13,17 +12,13 @@ public class CastingPrincipal {
     @EmbeddedId
     private CastingPrincipalId id;
 
-    @ManyToMany
+    @ManyToOne
     @MapsId("filmId")
-    @JoinTable(
-        name = "Acteur", 
-        joinColumns = @JoinColumn(name = "acteur_id"), 
-        inverseJoinColumns = @JoinColumn(name = "casting_id") 
-    )
+    @JoinColumn(name = "id_film")
     private Film film;
 
-    @ManyToMany
-    @MapsId("acteurid")
+    @ManyToOne
+    @MapsId("acteurId")
     @JoinColumn(name = "id_acteur")
     private Acteur acteur;
 

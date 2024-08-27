@@ -3,30 +3,34 @@ package fr.diginamic.imdb.entity;
 import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
-
 @Embeddable
 public class CastingPrincipalId implements Serializable {
 
-    private Long filmId;
-    private Long acteurId;
+    private Integer filmId;
+    private Integer acteurId;
+
     public CastingPrincipalId() {
     }
-    public CastingPrincipalId(Long filmId, Long acteurId) {
+
+    public CastingPrincipalId(Integer filmId, Integer acteurId) {
         this.filmId = filmId;
-        this.acteurId = acteurId;
-    }
-    public Long getFilmId() {
-        return filmId;
-    }
-    public void setFilmId(Long filmId) {
-        this.filmId = filmId;
-    }
-    public Long getActeurId() {
-        return acteurId;
-    }
-    public void setActeurId(Long acteurId) {
         this.acteurId = acteurId;
     }
 
+    public Integer getFilmId() {
+        return filmId;
+    }
+
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
+    }
+
+    public Integer getActeurId() {
+        return acteurId;
+    }
+
+    public void setActeurId(Integer acteurId) {
+        this.acteurId = acteurId;
+    }
 
 }

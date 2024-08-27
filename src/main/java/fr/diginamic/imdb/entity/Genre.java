@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
  * @author mattb
  */
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "Genre")
@@ -31,8 +31,8 @@ public class Genre {
     private String nom;
 
     // Relation avec Film via Avoir
-    @ManyToMany(mappedBy = "genre")
-    private Set<Film> films = new HashSet<>();
+    @ManyToMany(mappedBy = "genres")
+    private List<Film> films;
 
     public Genre(Integer id, String nom) {
         this.id = id;
@@ -55,11 +55,11 @@ public class Genre {
         this.nom = nom;
     }
 
-    public Set<Film> getFilms() {
+    public List<Film> getFilms() {
         return films;
     }
 
-    public void setFilms(Set<Film> films) {
+    public void setFilms(List<Film> films) {
         this.films = films;
     }
 }
