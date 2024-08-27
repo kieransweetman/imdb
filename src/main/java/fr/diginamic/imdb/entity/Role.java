@@ -24,7 +24,7 @@ public class Role {
     @JoinTable(
         name = "Acteur", 
         joinColumns = @JoinColumn(name = "acteur_id"), 
-        inverseJoinColumns = @JoinColumn(name = "casting_id") 
+        inverseJoinColumns = @JoinColumn(name = "role_id") 
     )
     private Acteur acteur;
 
