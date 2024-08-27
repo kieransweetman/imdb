@@ -54,6 +54,5 @@ public class CastingPrincipal {
     public void setActeur(Acteur acteur) {
         this.acteur = acteur;
     }
-       
-}
 
+}

@@ -2,6 +2,9 @@ package fr.diginamic.imdb.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LieuNaissanceRepository extends JpaRepository<LieuNaissance, Integer> {
+import fr.diginamic.imdb.entity.LieuNaissance;
+import fr.diginamic.imdb.entity.LieuNaissanceId;
+
+public interface LieuNaissanceRepository extends JpaRepository<LieuNaissance, LieuNaissanceId > {
 
 }
