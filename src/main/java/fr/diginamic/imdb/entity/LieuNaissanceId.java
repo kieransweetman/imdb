@@ -10,7 +10,7 @@ public class LieuNaissanceId implements Serializable {
     @Column(name = "lieu_id")
     private Long lieuId;
 
-    @Column(name = "acteur_id_acteur", nullable = true)
+    @Column(name = "acteur_id", nullable = true)
     private Long acteurId;
 
     @Column(name = "realisateur_id", nullable = true)
