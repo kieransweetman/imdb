@@ -3,6 +3,7 @@ package fr.diginamic.imdb.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,17 +12,18 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="pays")
+@Table(name = "pays")
 public class Pays {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String url;
-	
+
+	@Column(unique = true)
 	private String nom;
-	
+
 	private String abreviation;
 
 	@OneToMany(mappedBy= "pays")
@@ -91,7 +93,4 @@ public class Pays {
 				+ "]";
 	}
 
-	
-	
-	
 }
