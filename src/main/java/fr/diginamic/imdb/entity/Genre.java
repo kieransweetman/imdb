@@ -8,25 +8,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
 
 /**
  *
  * @author mattb
  */
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name="Genre")
 public class Genre {
+
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id_Genre")
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String nom;
 
-    public Genre() {
-    }
+    // Relation avec Film via Avoir
+    @ManyToMany(mappedBy = "genre")
+    private Set<Film> films = new HashSet<>();
 
-    public Genre(Long id, String nom) {
-        this.id = id;
+    public Genre() {}
+
+    public Genre(String nom) {
         this.nom = nom;
     }
 
@@ -45,6 +54,12 @@ public class Genre {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
-    
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
+    }
 }
