@@ -4,6 +4,7 @@
  */
 package fr.diginamic.imdb.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,31 +20,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "Genre")
 public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_genre")
-    private Long id;
+    private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String nom;
 
     // Relation avec Film via Avoir
     @ManyToMany(mappedBy = "genre")
     private Set<Film> films = new HashSet<>();
 
-    public Genre() {}
-
-    public Genre(String nom) {
+    public Genre(Integer id, String nom) {
+        this.id = id;
         this.nom = nom;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

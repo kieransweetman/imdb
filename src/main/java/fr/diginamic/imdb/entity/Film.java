@@ -1,12 +1,17 @@
 package fr.diginamic.imdb.entity;
 
 import java.time.Year;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +28,9 @@ public class Film {
     private String langue;
     private Year annee;
     private String url;
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tourner> tournages;
 
     @ManyToOne
     @JoinColumn(name = "pays_id", nullable = false)
@@ -109,6 +117,14 @@ public class Film {
 
     public void setPays(Pays pays) {
         this.pays = pays;
+    }
+
+    public List<Tourner> getTournages() {
+        return tournages;
+    }
+
+    public void setTournages(List<Tourner> tournages) {
+        this.tournages = tournages;
     }
 
 }

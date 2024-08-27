@@ -4,6 +4,7 @@
  */
 package fr.diginamic.imdb.entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,14 +26,11 @@ import java.util.Set;
 public class Acteur {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    private Long id;
-
-    @Column(nullable = false)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String identite;
 
-    private Integer taille;
+    private Float taille;
 
     private String url;
 
@@ -40,22 +38,18 @@ public class Acteur {
     @OneToMany(mappedBy = "acteur")
     private Set<CastingPrincipal> castingPrincipals = new HashSet<>();
 
-    @OneToMany(mappedBy = "acteur")
-    private Set<Role> roles = new HashSet<>();
-
-    public Acteur() {}
-
-    public Acteur(String identite, Integer taille, String url) {
+    public Acteur(Integer id, String identite, Float taille, String url) {
+        this.id = id;
         this.identite = identite;
         this.taille = taille;
         this.url = url;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -67,11 +61,11 @@ public class Acteur {
         this.identite = identite;
     }
 
-    public Integer getTaille() {
+    public Float getTaille() {
         return taille;
     }
 
-    public void setTaille(Integer taille) {
+    public void setTaille(Float taille) {
         this.taille = taille;
     }
 
