@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 public class Acteur {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String identite;
     private float taille;
     private String url;
@@ -28,7 +28,7 @@ public class Acteur {
     public Acteur() {
     }
 
-    public Acteur(Long id, String identite, float taille, String url) {
+    public Acteur(Integer id, String identite, float taille, String url) {
         this.id = id;
         this.identite = identite;
         this.taille = taille;
@@ -36,11 +36,11 @@ public class Acteur {
         
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

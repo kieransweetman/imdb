@@ -9,7 +9,7 @@ public class Realisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String identite;
 
@@ -32,11 +32,11 @@ public class Realisateur {
     private List<Film> films;
 
     // Getters et setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

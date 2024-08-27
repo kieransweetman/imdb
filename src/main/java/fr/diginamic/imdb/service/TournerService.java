@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TournerService extends AbstractService<Tourner, Long> {
+public class TournerService extends AbstractService<Tourner, Integer> {
 
     @Autowired
     private TournerRepository tournerRepository;

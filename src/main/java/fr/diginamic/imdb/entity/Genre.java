@@ -21,7 +21,7 @@ public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true)
     private String nom;
@@ -29,16 +29,16 @@ public class Genre {
     public Genre() {
     }
 
-    public Genre(Long id, String nom) {
+    public Genre(Integer id, String nom) {
         this.id = id;
         this.nom = nom;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

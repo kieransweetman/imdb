@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LieuService extends AbstractService<Lieu, Long> {
+public class LieuService extends AbstractService<Lieu, Integer> {
 
     @Autowired
     private LieuRepository lieuRepository;
