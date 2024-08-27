@@ -21,7 +21,7 @@ public class LieuNaissance {
 
     @ManyToOne
     @MapsId("acteurId")
-    @JoinColumn(name = "acteur_id_acteur", nullable = true)
+    @JoinColumn(name = "acteur_id", nullable = true)
     private Acteur acteur;
 
     @ManyToOne
