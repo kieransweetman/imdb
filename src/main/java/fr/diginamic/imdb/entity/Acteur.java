@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.Entity;
@@ -32,11 +28,12 @@ public class Acteur {
 
     private String url;
 
-    private Set<Role> roles;
-
     // Relations avec d'autres entités
     @OneToMany(mappedBy = "acteur")
     private Set<CastingPrincipal> castingPrincipals = new HashSet<>();
+
+    @OneToMany(mappedBy = "acteur")
+    private Set<Role> roles = new HashSet<>();
 
     public Acteur(Integer id, String identite, Float taille, String url) {
         this.id = id;
@@ -85,6 +82,12 @@ public class Acteur {
         this.castingPrincipals = castingPrincipals;
     }
 
+    @Override
+    public String toString() {
+        return "Acteur [id=" + id + ", identite=" + identite + ", taille=" + taille + ", url=" + url
+                + ", castingPrincipals=" + castingPrincipals + "]";
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -92,4 +95,5 @@ public class Acteur {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }
