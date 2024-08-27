@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @Table(name = "lieu")
@@ -14,7 +16,23 @@ public class Lieu {
     private int id;
     private String nom;
 
-    public int getId() {
+    @ManyToOne
+    @JoinColumn(name = "id_pays")
+    private Pays pays;
+    
+    
+    public Lieu() {
+		super();
+	}
+
+	public Lieu(int id, String nom, Pays pays) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.pays = pays;
+	}
+
+	public int getId() {
         return id;
     }
 
