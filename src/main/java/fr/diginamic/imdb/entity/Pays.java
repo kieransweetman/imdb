@@ -1,5 +1,6 @@
 package fr.diginamic.imdb.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,17 +8,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="pays")
+@Table(name = "pays")
 public class Pays {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String url;
-	
+
+	@Column(unique = true)
 	private String nom;
-	
+
 	private String abreviation;
 
 	public Pays() {
@@ -67,6 +69,5 @@ public class Pays {
 	public String toString() {
 		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + "]";
 	}
-	
-	
+
 }
