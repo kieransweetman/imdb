@@ -1,21 +1,25 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.MapsId;
 
 @Entity
 public class CastingPrincipal {
 
-    @EmbeddedId
+    @Embedded
     private CastingPrincipalId id;
 
-    @ManyToOne
+    @ManyToMany
     @MapsId("filmId")
-    @JoinColumn(name = "Id_Film")
+    @JoinColumn(name = "id_film")
     private Film film;
 
-    @ManyToOne
-    @MapsId("acteurId")
-    @JoinColumn(name = "Id_Acteur")
+    @ManyToMany
+    @MapsId("acteurid")
+    @JoinColumn(name = "id_acteur")
     private Acteur acteur;
 
     public CastingPrincipal() {
