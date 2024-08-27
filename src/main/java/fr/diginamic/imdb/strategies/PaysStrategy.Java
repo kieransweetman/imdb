@@ -1,5 +1,9 @@
 package fr.diginamic.imdb.strategies;
 
-public class PaysStrategy {
+public class PaysStrategy implements CsvProcessingStrategy {
+    @Override
+    public void process(String line) {
+        // TODO Auto-generated method stub
+    }
 
 }

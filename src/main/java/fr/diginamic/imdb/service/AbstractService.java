@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.List;
-
 public abstract class AbstractService<T, ID> {
     protected abstract JpaRepository<T, ID> getRepository();
 
