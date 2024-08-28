@@ -9,36 +9,41 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 /**
  *
  * @author mattb
  */
+import java.util.HashSet;
+import java.util.List;
+
 @Entity
 @Table(name = "Genre")
 public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true)
     private String nom;
 
-    public Genre() {
-    }
+    // Relation avec Film via Avoir
+    @ManyToMany(mappedBy = "genres")
+    private List<Film> films;
 
-    public Genre(Long id, String nom) {
+    public Genre(Integer id, String nom) {
         this.id = id;
         this.nom = nom;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,4 +55,11 @@ public class Genre {
         this.nom = nom;
     }
 
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
+    }
 }

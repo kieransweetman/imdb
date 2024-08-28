@@ -1,12 +1,18 @@
 package fr.diginamic.imdb.entity;
 
 import java.time.Year;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,15 +26,24 @@ public class Film {
     private String nom;
     private String resume;
     private float rating;
-    private String langue;
+
+    @Embedded
+    private Langue langue;
     private Year annee;
     private String url;
+
+    @ManyToMany
+    @JoinTable(name = "Film_Genre", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> genres;
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tourner> tournages;
 
     @ManyToOne
     @JoinColumn(name = "pays_id", nullable = false)
     private Pays pays;
 
-    public Film(String nom, String resume, float rating, String langue, Year annee, String url) {
+    public Film(String nom, String resume, float rating, Langue langue, Year annee, String url) {
         this.nom = nom;
         this.resume = resume;
         this.rating = rating;
@@ -79,11 +94,11 @@ public class Film {
         this.rating = rating;
     }
 
-    public String getLangue() {
+    public Langue getLangue() {
         return langue;
     }
 
-    public void setLangue(String langue) {
+    public void setLangue(Langue langue) {
         this.langue = langue;
     }
 
@@ -103,12 +118,28 @@ public class Film {
         this.url = url;
     }
 
+    public List<Genre> getGenre() {
+        return genres;
+    }
+
+    public void setGenre(List<Genre> genres) {
+        this.genres = genres;
+    }
+
     public Pays getPays() {
         return pays;
     }
 
     public void setPays(Pays pays) {
         this.pays = pays;
+    }
+
+    public List<Tourner> getTournages() {
+        return tournages;
+    }
+
+    public void setTournages(List<Tourner> tournages) {
+        this.tournages = tournages;
     }
 
 }
