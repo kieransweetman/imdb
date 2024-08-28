@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 
+import java.util.Arrays;
+
 public class ActeurStrategy implements ICsvProcessingStrategy {
 
     @Autowired
@@ -27,26 +29,47 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
     @Override
     public void process(String line) {
         // IMDB;IDENTITE;DATE NAISSANCE;LIEU NAISSANCE;TAILLE;URL
+        // nm0184429;Franklin Cover;November 20 1928 ;Cleveland, Ohio, USA ;1.93
+        // m;/name/nm0184429/?ref_=tt_cl_t_3
         String[] fields = line.split(";");
-        String identite = fields[1];
-        String dateString = fields[2];
 
-        Float taille = Float.parseFloat(fields[5]);
-        String url = fields[6];
+        // Actor info
+        String identite = fields[1];
+        Float taille = Float.parseFloat(fields[4]);
+        String url = fields[5];
+
         Acteur acteur = new Acteur(identite, taille, url);
         Acteur newActeur = acteurService.save(acteur);
 
-        if (newActeur != null) {
-            LieuNaissance ln = new LieuNaissance();
-            Lieu lieu = new Lieu();
-            lieu.setNom(fields[3]);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate date = LocalDate.parse(dateString, formatter);
-            Date dob = Date.valueOf(date);
+        // Date and place of birth
+        Lieu lieu = new Lieu();
+        LieuNaissance ln = new LieuNaissance();
 
-            ln.setActeur(newActeur);
-            ln.setDate(dob);
+        String[] locationParts = fields[3].split(",");
+        // country is always at the end
+        // TODO -> if the lieu is an abbreviation (only two i counted? US and Uk), need
+        String country = locationParts[locationParts.length - 1].trim();
+        String cityAndState = String.join(", ", Arrays.copyOf(locationParts, locationParts.length - 1)).trim();
+        // to map it to the correct full name.
+
+        Lieu existingLieu = lieuService.findByNom(cityAndState);
+        if (existingLieu != null) {
+            ln.setLieu(existingLieu);
+        } else {
+            lieu.setNom(fields[3]);
+            lieu = lieuService.save(lieu);
+            ln.setLieu(lieu);
         }
+
+        String dateString = fields[2];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(dateString, formatter);
+        Date dob = Date.valueOf(date);
+
+        ln.setActeur(newActeur);
+        ln.setDate(dob);
+
+        lieuNaissanceService.save(ln);
     }
 
 }
