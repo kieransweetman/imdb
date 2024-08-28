@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 import fr.diginamic.imdb.entity.Pays;
 
 @Repository
-public interface PaysRepository extends JpaRepository<Pays,Integer> {
+public interface PaysRepository extends JpaRepository<Pays, Integer> {
 
-	
+    Pays findByNom(String nom);
+
 }

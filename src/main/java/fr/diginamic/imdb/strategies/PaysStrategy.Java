@@ -13,7 +13,15 @@ public class PaysStrategy implements ICsvProcessingStrategy {
     @Override
     public void process(String line) {
         String[] fields = line.split(",");
-        Pays pays = new Pays(fields[0], fields[1]);
+
+        Pays existingPays = paysService.findByNom(fields[0]);
+
+        if (existingPays != null)
+            return;
+
+        Pays pays = new Pays();
+        pays.setNom(fields[0]);
+        pays.setUrl(fields[1]);
         paysService.save(pays);
     }
 

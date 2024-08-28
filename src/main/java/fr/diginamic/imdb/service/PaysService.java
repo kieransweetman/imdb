@@ -16,4 +16,8 @@ public class PaysService extends AbstractService<Pays, Integer> {
     protected JpaRepository<Pays, Integer> getRepository() {
         return paysRepository;
     }
+
+    public Pays findByNom(String nom) {
+        return paysRepository.findByNom(nom);
+    }
 }
