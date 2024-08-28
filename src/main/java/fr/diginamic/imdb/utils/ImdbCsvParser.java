@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import fr.diginamic.imdb.strategies.CsvProcessingStrategy;
+import fr.diginamic.imdb.strategies.ICsvProcessingStrategy;
 import fr.diginamic.imdb.strategies.CsvProcessingStrategyFactory;
 
 /**
@@ -21,9 +21,10 @@ public class ImdbCsvParser {
     public void parseFiles(List<String> csvFilePaths) {
         for (String csvFilePath : csvFilePaths) {
 
-            CsvProcessingStrategy strategy = CsvProcessingStrategyFactory.getStrategyForFile(csvFilePath);
+            ICsvProcessingStrategy strategy = CsvProcessingStrategyFactory.getStrategyForFile(csvFilePath);
             if (strategy == null) {
-                // ImdbException.log(new IllegalArgumentException("No strategy found for file: " + csvFilePath));
+                // ImdbException.log(new IllegalArgumentException("No strategy found for file: "
+                // + csvFilePath));
                 continue;
             } else {
                 System.out.println("Processing file: " + csvFilePath);

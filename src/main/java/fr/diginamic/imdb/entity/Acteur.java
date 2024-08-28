@@ -35,8 +35,7 @@ public class Acteur {
     @OneToMany(mappedBy = "acteur")
     private Set<Role> roles = new HashSet<>();
 
-    public Acteur(Integer id, String identite, Float taille, String url) {
-        this.id = id;
+    public Acteur(String identite, Float taille, String url) {
         this.identite = identite;
         this.taille = taille;
         this.url = url;

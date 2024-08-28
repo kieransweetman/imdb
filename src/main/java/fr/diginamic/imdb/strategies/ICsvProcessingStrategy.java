@@ -1,5 +1,5 @@
 package fr.diginamic.imdb.strategies;
 
-public interface CsvProcessingStrategy {
+public interface ICsvProcessingStrategy {
     void process(String line);
 }
