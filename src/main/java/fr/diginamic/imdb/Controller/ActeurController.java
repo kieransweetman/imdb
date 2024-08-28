@@ -1,4 +1,4 @@
-package fr.diginamic.imdb.Controller;
+package fr.diginamic.imdb.controller;
 
 import java.util.List;
 import java.util.Optional;

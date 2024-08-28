@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import fr.diginamic.imdb.entity.Lieu;
 import fr.diginamic.imdb.entity.LieuNaissance;
 import fr.diginamic.imdb.entity.Realisateur;
 import fr.diginamic.imdb.service.LieuNaissanceService;

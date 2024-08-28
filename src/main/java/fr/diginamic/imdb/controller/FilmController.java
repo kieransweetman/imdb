@@ -62,8 +62,6 @@ public class FilmController {
 		
 			filmService.deleteById(id);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(newFilm);
-		
-		
-		
+	
 	}
 }
