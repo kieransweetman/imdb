@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import java.sql.Date;
+
 /**
  *
  * @author mattb
@@ -27,6 +29,7 @@ public class Acteur {
     private Float taille;
 
     private String url;
+    private Date dateNaissance;
 
     // Relations avec d'autres entités
     @OneToMany(mappedBy = "acteur")
@@ -39,12 +42,20 @@ public class Acteur {
     public Acteur() {
     }
 
-    public Acteur(Integer id, String identite, Float taille, String url) {
+    
+
+    public Acteur(Integer id, String identite, Float taille, String url, Date dateNaissance,
+            Set<CastingPrincipal> castingPrincipals, Set<Role> roles) {
         this.id = id;
         this.identite = identite;
         this.taille = taille;
         this.url = url;
+        this.dateNaissance = dateNaissance;
+        this.castingPrincipals = castingPrincipals;
+        this.roles = roles;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -77,6 +88,14 @@ public class Acteur {
     public void setUrl(String url) {
         this.url = url;
     }
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+    
 
     public Set<CastingPrincipal> getCastingPrincipals() {
         return castingPrincipals;
@@ -99,5 +118,6 @@ public class Acteur {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 
 }

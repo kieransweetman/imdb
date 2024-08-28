@@ -19,5 +19,6 @@ public class ActeurService extends AbstractService<Acteur,Integer>  {
     protected JpaRepository<Acteur,Integer> getRepository(){
         return acteurRepository;
     };
+    
 
 }
