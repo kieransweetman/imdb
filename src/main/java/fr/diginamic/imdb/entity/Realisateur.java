@@ -12,23 +12,17 @@ public class Realisateur {
     private Integer id;
 
     private String identite;
-
-    private LocalDate dateNaissance;
-
     private String url;
 
-    // Relation avec Lieu (plusieurs réalisateurs peuvent être nés dans un seul lieu)
+    // Relation avec Lieu (plusieurs réalisateurs peuvent être nés dans un seul
+    // lieu)
     @ManyToOne
     @JoinColumn(name = "lieu_naissance_id")
     private Lieu lieuNaissance;
 
     // Relation ManyToMany avec Film
     @ManyToMany
-    @JoinTable(
-            name = "Film_Realisateur",
-            joinColumns = @JoinColumn(name = "realisateur_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id")
-    )
+    @JoinTable(name = "Film_Realisateur", joinColumns = @JoinColumn(name = "realisateur_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Film> films;
 
     // Getters et setters
