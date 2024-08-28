@@ -8,47 +8,47 @@ import java.util.Objects;
 @Embeddable
 public class LieuNaissanceId implements Serializable {
     @Column(name = "lieu_id")
-    private Long lieuId;
+    private Integer lieuId;
 
     @Column(name = "acteur_id", nullable = true)
-    private Long acteurId;
+    private Integer acteurId;
 
     @Column(name = "realisateur_id", nullable = true)
-    private Long realisateurId;
+    private Integer realisateurId;
 
     // Default constructor
     public LieuNaissanceId() {
     }
 
     // Parameterized constructor
-    public LieuNaissanceId(Long lieuId, Long acteurId, Long realisateurId) {
+    public LieuNaissanceId(Integer lieuId, Integer acteurId, Integer realisateurId) {
         this.lieuId = lieuId;
         this.acteurId = acteurId;
         this.realisateurId = realisateurId;
     }
 
     // Getters and setters
-    public Long getLieuId() {
+    public Integer getLieuId() {
         return lieuId;
     }
 
-    public void setLieuId(Long lieuId) {
+    public void setLieuId(Integer lieuId) {
         this.lieuId = lieuId;
     }
 
-    public Long getActeurId() {
+    public Integer getActeurId() {
         return acteurId;
     }
 
-    public void setActeurId(Long acteurId) {
+    public void setActeurId(Integer acteurId) {
         this.acteurId = acteurId;
     }
 
-    public Long getRealisateurId() {
+    public Integer getRealisateurId() {
         return realisateurId;
     }
 
-    public void setRealisateurId(Long realisateurId) {
+    public void setRealisateurId(Integer realisateurId) {
         this.realisateurId = realisateurId;
     }
 

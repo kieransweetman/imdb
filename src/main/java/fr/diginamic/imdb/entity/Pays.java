@@ -1,10 +1,14 @@
 package fr.diginamic.imdb.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,16 +26,24 @@ public class Pays {
 
 	private String abreviation;
 
+	@OneToMany(mappedBy= "pays")
+	private List<Lieu> lieu = new ArrayList<Lieu>();
+	
+	
 	public Pays() {
 		super();
 	}
 
-	public Pays(String url, String nom, String abreviation) {
+	public Pays(Integer id, String url, String nom, String abreviation, List<Lieu> lieu) {
 		super();
+		this.id = id;
 		this.url = url;
 		this.nom = nom;
 		this.abreviation = abreviation;
+		this.lieu = lieu;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -64,10 +76,21 @@ public class Pays {
 	public void setAbreviation(String abreviation) {
 		this.abreviation = abreviation;
 	}
+	
+	
+
+	public List<Lieu> getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(List<Lieu> lieu) {
+		this.lieu = lieu;
+	}
 
 	@Override
 	public String toString() {
-		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + "]";
+		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + ", lieu=" + lieu
+				+ "]";
 	}
 
 }
