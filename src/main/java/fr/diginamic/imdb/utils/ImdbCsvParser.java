@@ -27,7 +27,7 @@ public class ImdbCsvParser {
                 continue;
             } else {
                 System.out.println("Processing file: " + csvFilePath);
-                continue;
+                ImdbException.log(new Exception("Processing file: " + csvFilePath));
             }
 
             // try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -48,6 +48,7 @@ public class ImdbCsvParser {
             // ImdbException.log(e);
             // }
         }
+
     }
 
 }
