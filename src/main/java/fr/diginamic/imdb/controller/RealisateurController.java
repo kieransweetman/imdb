@@ -1,5 +1,6 @@
 package fr.diginamic.imdb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import fr.diginamic.imdb.entity.LieuNaissance;
 import fr.diginamic.imdb.entity.Realisateur;
 import fr.diginamic.imdb.service.LieuNaissanceService;
 import fr.diginamic.imdb.service.RealisateurService;
+import org.springframework.http.HttpStatus;
 
 
 @RestController
@@ -32,48 +34,53 @@ public class RealisateurController {
 	
 
 	@PostMapping
-	public ResponseEntity<String> createRealisateur(@RequestBody Realisateur realisateur) {
+	public ResponseEntity<Realisateur> createRealisateur(@RequestBody Realisateur realisateur) {
 		
 		LieuNaissance lieuNaiss = new LieuNaissance();
-		Lieu lieu = new Lieu();
+	//	Lieu lieu = new Lieu();
 		
 		Realisateur real = realisateurService.save(realisateur);
-		lieuNaiss.setRealisateur(real);
-		lieuNaiss.setLieu(lieu);
 		
-		lieuNaissanceService.save(lieuNaiss);
+	//	lieuNaiss.setRealisateur(real);
+	//	lieuNaiss.setLieu(lieu);
 		
-		return ResponseEntity.ok("Success !");
+	//	lieuNaissanceService.save(lieuNaiss);
+		
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(real);
 	}
 	
 	
 	@GetMapping
-	public ResponseEntity<String> readRealisateur() {
+	public ResponseEntity<List<Realisateur>> getAllRealisateur() {
 		
-		realisateurService.getAll();
+		List<Realisateur> listReal = new ArrayList<Realisateur>();
 		
-		return ResponseEntity.ok("Success !");
+		
+		listReal = realisateurService.getAll();
+		
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(listReal);
 	}
 	
 	@PutMapping
-	public ResponseEntity<String> updateRealisateur(@RequestBody Realisateur realisateur){
+	public ResponseEntity<Realisateur> updateRealisateur(@RequestBody Realisateur realisateur){
 		
+		Realisateur real = realisateurService.save(realisateur);
 		
-		
-		realisateurService.save(realisateur);
-		return ResponseEntity.ok("Success !");
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(real);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteRealisateur(@PathVariable Integer id) {
+	public ResponseEntity<Realisateur> deleteRealisateur(@PathVariable Integer id) {
 		
-		if (realisateurService.getById(id).getFilms().isEmpty()) {
+		Realisateur real = realisateurService.getById(id);
+		
+		if (real.getFilms().isEmpty()) {
 			realisateurService.deleteById(id);
-			return ResponseEntity.ok("Success !");
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(real);
 		}
 		else {
 			
-			return ResponseEntity.badRequest().body("The realisateur is associated to some films, cannot delete realisateur !");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(real);
 		}
 		
 		
