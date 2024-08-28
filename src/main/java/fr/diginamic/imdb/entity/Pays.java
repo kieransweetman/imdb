@@ -26,24 +26,18 @@ public class Pays {
 
 	private String abreviation;
 
-	@OneToMany(mappedBy= "pays")
+	@OneToMany(mappedBy = "pays")
 	private List<Lieu> lieu = new ArrayList<Lieu>();
-	
-	
+
 	public Pays() {
 		super();
 	}
 
-	public Pays(Integer id, String url, String nom, String abreviation, List<Lieu> lieu) {
+	public Pays(String url, String nom) {
 		super();
-		this.id = id;
 		this.url = url;
 		this.nom = nom;
-		this.abreviation = abreviation;
-		this.lieu = lieu;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -76,8 +70,6 @@ public class Pays {
 	public void setAbreviation(String abreviation) {
 		this.abreviation = abreviation;
 	}
-	
-	
 
 	public List<Lieu> getLieu() {
 		return lieu;
