@@ -48,6 +48,11 @@ public class Film {
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Role> roles;
 
+    // Relation ManyToMany avec Film
+    @ManyToMany
+    @JoinTable(name = "Film_Realisateur", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "realisateur_id"))
+    private List<Realisateur> realisateur;
+
     public Film(String nom, String resume, float rating, Langue langue, Year annee, String url) {
         this.nom = nom;
         this.resume = resume;
@@ -94,7 +99,6 @@ public class Film {
     public float getRating() {
         return rating;
     }
-    
 
     public List<Genre> getGenres() {
         return genres;
@@ -162,6 +166,14 @@ public class Film {
 
     public void setTournages(List<Tourner> tournages) {
         this.tournages = tournages;
+    }
+
+    public List<Realisateur> getRealisateur() {
+        return realisateur;
+    }
+
+    public void setRealisateur(List<Realisateur> realisateur) {
+        this.realisateur = realisateur;
     }
 
 }

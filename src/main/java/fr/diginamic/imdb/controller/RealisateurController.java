@@ -35,16 +35,26 @@ public class RealisateurController {
 	public ResponseEntity<Realisateur> createRealisateur(@RequestBody Realisateur realisateur) {
 		
 		LieuNaissance lieuNaiss = new LieuNaissance();
-	//	Lieu lieu = new Lieu();
+		Lieu lieu = new Lieu();
+		Realisateur real = new Realisateur();
 		
-		Realisateur real = realisateurService.save(realisateur);
+		if (realisateur.getLieuNaissance() != null) {
+			real = realisateurService.save(realisateur);
 		
-	//	lieuNaiss.setRealisateur(real);
-	//	lieuNaiss.setLieu(lieu);
+			lieuNaiss.setRealisateur(real);
+			lieu = lieuNaiss.getLieu();
+			
+			lieuNaiss.setLieu(lieu);
+			
+			lieuNaissanceService.save(lieuNaiss);
+			
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(real);
+		}
+	
+		else {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(real);
+		}
 		
-	//	lieuNaissanceService.save(lieuNaiss);
-		
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(real);
 	}
 	
 	
