@@ -1,6 +1,6 @@
 package fr.diginamic.imdb.strategies;
 
-public class RoStrategy implements ICsvProcessingStrategy {
+public class RoleStrategy implements ICsvProcessingStrategy {
     @Override
     public void process(String line) {
         // TODO Auto-generated method stub

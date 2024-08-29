@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.service.PaysService;
 
-public class PStrategy implements ICsvProcessingStrategy {
+public class PaysStrategy implements ICsvProcessingStrategy {
     @Autowired
     public PaysService paysService;
 
