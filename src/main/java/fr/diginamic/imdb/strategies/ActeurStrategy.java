@@ -14,7 +14,7 @@ import fr.diginamic.imdb.service.ActeurService;
 import fr.diginamic.imdb.service.LieuNaissanceService;
 import fr.diginamic.imdb.service.LieuService;
 
-public class AStrategy implements ICsvProcessingStrategy {
+public class ActeurStrategy implements ICsvProcessingStrategy {
 
     @Autowired
     public ActeurService acteurService;
