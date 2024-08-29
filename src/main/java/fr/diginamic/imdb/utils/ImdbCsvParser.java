@@ -16,7 +16,7 @@ import fr.diginamic.imdb.strategies.CsvProcessingStrategyFactory;
  * We skip the head here and process each line of the CSV file inside the
  * specified strategy
  */
-@Component
+// @Component
 public class ImdbCsvParser {
     public void parseFiles(List<String> csvFilePaths) {
         for (String csvFilePath : csvFilePaths) {

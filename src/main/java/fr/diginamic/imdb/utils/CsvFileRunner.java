@@ -17,7 +17,7 @@ public class CsvFileRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // List of CSV file paths to parse
         List<String> csvFilePaths = Arrays.asList(
-                "src/main/resources/data/acteurs.csv",
+                // "src/main/resources/data/acteurs.csv",
                 // "src/main/resources/data/castingPrincipal.csv",
                 // "src/main/resources/data/films.csv",
                 "src/main/resources/data/pays.csv"

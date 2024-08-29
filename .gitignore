@@ -34,10 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
-logs/log.txt
-logs/spring-boot-app.log
-logs/log.txt
-logs/log.txt
-logs/imdb_exception.log
+logs/*
 
 #test
