@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Table(name="realisateur")
 public class Realisateur {
 
     @Id
@@ -31,7 +32,19 @@ public class Realisateur {
     )
     private List<Film> films;
 
-    // Getters et setters
+    public Realisateur() {
+		super();
+	}
+
+	public Realisateur(String identite, LocalDate dateNaissance, String url, Lieu lieuNaissance) {
+		super();
+		this.identite = identite;
+		this.dateNaissance = dateNaissance;
+		this.url = url;
+		this.lieuNaissance = lieuNaissance;
+	}
+
+	// Getters et setters
     public Integer getId() {
         return id;
     }
