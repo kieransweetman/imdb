@@ -20,4 +20,8 @@ public class LieuService extends AbstractService<Lieu, Integer> {
     public Lieu findByNom(String nom) {
         return lieuRepository.findByNom(nom);
     }
+
+    public Lieu findByNomAndPaysNom(String name, String country) {
+        return lieuRepository.findByNomAndPaysNom(name, country);
+    }
 }
