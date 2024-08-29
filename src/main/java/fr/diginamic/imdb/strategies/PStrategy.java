@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.service.PaysService;
 
-public class PaysStrategy implements ICsvProcessingStrategy {
-
+public class PStrategy implements ICsvProcessingStrategy {
     @Autowired
     public PaysService paysService;
 
@@ -24,5 +23,4 @@ public class PaysStrategy implements ICsvProcessingStrategy {
         pays.setUrl(fields[1]);
         paysService.save(pays);
     }
-
 }
