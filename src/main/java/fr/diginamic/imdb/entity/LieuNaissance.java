@@ -6,7 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "lieu_naissance")
@@ -30,8 +30,23 @@ public class LieuNaissance {
     private Realisateur realisateur;
 
     private Date date;
+    
+    public LieuNaissance() {
+		super();
+    }
+		
+		
+    public LieuNaissance(Lieu lieu, Acteur acteur, Realisateur realisateur, Date date) {
+		super();
+		this.lieu = lieu;
+		this.acteur = acteur;
+		this.realisateur = realisateur;
+		this.date = date;
+	}
 
-    // Getters and setters
+	
+
+	// Getters and setters
     public LieuNaissanceId getId() {
         return id;
     }

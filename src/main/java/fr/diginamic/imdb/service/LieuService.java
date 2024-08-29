@@ -16,4 +16,9 @@ public class LieuService extends AbstractService<Lieu, Integer> {
     protected JpaRepository<Lieu, Integer> getRepository() {
         return lieuRepository;
     }
+    
+    
+    public Lieu findByNom(String nom) {
+    	return lieuRepository.findByNom(nom);
+    }
 }

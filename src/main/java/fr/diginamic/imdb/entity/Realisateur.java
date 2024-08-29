@@ -1,6 +1,8 @@
 package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.*;
+
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class Realisateur {
 
     private String identite;
 
-    private LocalDate dateNaissance;
+    private Date dateNaissance;
 
     private String url;
 
@@ -36,7 +38,7 @@ public class Realisateur {
 		super();
 	}
 
-	public Realisateur(String identite, LocalDate dateNaissance, String url, Lieu lieuNaissance) {
+	public Realisateur(String identite, Date dateNaissance, String url, Lieu lieuNaissance) {
 		super();
 		this.identite = identite;
 		this.dateNaissance = dateNaissance;
@@ -61,11 +63,11 @@ public class Realisateur {
         this.identite = identite;
     }
 
-    public LocalDate getDateNaissance() {
+    public Date getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 

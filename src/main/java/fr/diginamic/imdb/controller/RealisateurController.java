@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.diginamic.imdb.entity.Lieu;
 import fr.diginamic.imdb.entity.LieuNaissance;
+import fr.diginamic.imdb.entity.LieuNaissanceId;
 import fr.diginamic.imdb.entity.Realisateur;
 import fr.diginamic.imdb.service.LieuNaissanceService;
+import fr.diginamic.imdb.service.LieuService;
 import fr.diginamic.imdb.service.RealisateurService;
 import org.springframework.http.HttpStatus;
 
@@ -30,6 +32,9 @@ public class RealisateurController {
 	private RealisateurService realisateurService;
 	
 	@Autowired
+	private LieuService lieuService;
+	
+	@Autowired
 	private LieuNaissanceService lieuNaissanceService;
 	
 
@@ -38,17 +43,27 @@ public class RealisateurController {
 		
 		LieuNaissance lieuNaiss = new LieuNaissance();
 		Lieu lieu = new Lieu();
+		LieuNaissanceId lieuNaissId = new LieuNaissanceId();
+		
 		Realisateur real = new Realisateur();
 		
 		if (realisateur.getLieuNaissance() != null) {
+			
 			real = realisateurService.save(realisateur);
 		
-			lieuNaiss.setRealisateur(real);
-			lieu = lieuNaiss.getLieu();
+			lieuNaiss.setRealisateur(realisateur);
+			lieu = lieuService.findByNom(realisateur.getLieuNaissance().getNom());
+			
+			//lieuService.save(lieu);
+			
+			lieuNaissId = lieuNaiss.getId();
 			
 			lieuNaiss.setLieu(lieu);
+			lieuNaiss.setDate(realisateur.getDateNaissance());
 			
 			lieuNaissanceService.save(lieuNaiss);
+
+			
 			
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(real);
 		}

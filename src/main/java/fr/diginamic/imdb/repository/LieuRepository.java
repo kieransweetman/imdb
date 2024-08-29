@@ -8,4 +8,6 @@ import fr.diginamic.imdb.entity.Lieu;
 @Repository
 public interface LieuRepository extends JpaRepository<Lieu, Integer> {
 
+	Lieu findByNom(String nom);
+	
 }
