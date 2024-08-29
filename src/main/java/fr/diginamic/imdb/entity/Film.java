@@ -1,7 +1,9 @@
 package fr.diginamic.imdb.entity;
 
 import java.time.Year;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -42,6 +44,9 @@ public class Film {
     @ManyToOne
     @JoinColumn(name = "pays_id", nullable = false)
     private Pays pays;
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Role> roles;
 
     public Film(String nom, String resume, float rating, Langue langue, Year annee, String url) {
         this.nom = nom;
@@ -88,6 +93,23 @@ public class Film {
 
     public float getRating() {
         return rating;
+    }
+    
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public void setRating(float rating) {

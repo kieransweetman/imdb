@@ -1,5 +1,6 @@
 package fr.diginamic.imdb.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
@@ -23,9 +24,20 @@ public class Role {
     @JoinColumn(name = "id_acteur")
     private Acteur acteur;
 
+    @Column(name = "character_name")
+    private String characterName;
+
     private String personnage;
 
     public Role() {
+    }
+    
+    public Role(RoleId id, Film film, Acteur acteur, String characterName, String personnage) {
+        this.id = id;
+        this.film = film;
+        this.acteur = acteur;
+        this.characterName = characterName;
+        this.personnage = personnage;
     }
 
     public RoleId getId() {
@@ -47,6 +59,7 @@ public class Role {
     public Acteur getActeur() {
         return acteur;
     }
+    
 
     public void setActeur(Acteur acteur) {
         this.acteur = acteur;
@@ -58,6 +71,14 @@ public class Role {
 
     public void setPersonnage(String personnage) {
         this.personnage = personnage;
+    }
+
+    public String getCharacterName() {
+        return characterName;
+    }
+
+    public void setCharacterName(String characterName) {
+        this.characterName = characterName;
     }
 
 }

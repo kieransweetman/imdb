@@ -1,10 +1,12 @@
 package fr.diginamic.imdb.service;
 
-import fr.diginamic.imdb.entity.Film;
 import fr.diginamic.imdb.repository.FilmRepository;
+import fr.diginamic.imdb.entity.Film;
+import fr.diginamic.imdb.entity.Role;
+import fr.diginamic.imdb.entity.RoleId;
 import fr.diginamic.imdb.repository.RoleRepository;
 
-import javax.management.relation.Role;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,19 +24,18 @@ public class FilmService extends AbstractService<Film, Integer> {
         return filmRepository;
     }
    // Ajouter un rôle à un film donné
-   public Role addRoleToFilm(Long filmId, Role role) {
-    Film film = filmRepository.existsById(id)
+   public Role addRoleToFilm(Integer id, Role role) {
+    Film film = filmRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Film not found"));
-    
     role.setFilm(film);
-    film.getRoles().add(role);
+    //film.addRoleToFilm(role); : créer la méthode dans Film
     filmRepository.save(film); 
     
     return roleRepository.save(role); // Pour persister le rôle
 }
 
 // Modifier un rôle pour un film donné
-public Role updateRole(Long roleId, String newCharacterName) {
+public Role updateRole(RoleId roleId, String newCharacterName) {
     Role role = roleRepository.findById(roleId)
             .orElseThrow(() -> new RuntimeException("Role not found"));
     
@@ -43,7 +44,7 @@ public Role updateRole(Long roleId, String newCharacterName) {
 }
 
 // Supprimer un rôle pour un film donné
-public void deleteRole(Long roleId) {
+public void deleteRole(RoleId roleId) {
     Role role = roleRepository.findById(roleId)
             .orElseThrow(() -> new RuntimeException("Role not found"));
     
@@ -57,7 +58,7 @@ public void deleteRole(Long roleId) {
 }
 
 // Trouver les rôles pour un film donné
-public List<Role> findRolesByFilm(Long filmId) {
+public List<Role> findRolesByFilm(Integer filmId) {
     return roleRepository.findByFilmId(filmId);
 }
 }
