@@ -1,5 +1,10 @@
 package fr.diginamic.imdb.strategies;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.diginamic.imdb.entity.Acteur;
@@ -9,13 +14,7 @@ import fr.diginamic.imdb.service.ActeurService;
 import fr.diginamic.imdb.service.LieuNaissanceService;
 import fr.diginamic.imdb.service.LieuService;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.sql.Date;
-
-import java.util.Arrays;
-
-public class ActeurStrategy implements ICsvProcessingStrategy {
+public class AStrategy implements ICsvProcessingStrategy {
 
     @Autowired
     public ActeurService acteurService;
