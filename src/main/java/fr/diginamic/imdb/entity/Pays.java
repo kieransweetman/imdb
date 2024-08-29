@@ -33,10 +33,13 @@ public class Pays {
 		super();
 	}
 
-	public Pays(String url, String nom) {
+	public Pays(Integer id, String url, String nom, String abreviation, List<Lieu> lieu) {
 		super();
+		this.id = id;
 		this.url = url;
 		this.nom = nom;
+		this.abreviation = abreviation;
+		this.lieu = lieu;
 	}
 
 	public Integer getId() {
