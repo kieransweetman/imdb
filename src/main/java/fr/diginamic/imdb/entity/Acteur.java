@@ -41,14 +41,12 @@ public class Acteur {
     public Acteur() {
     }
 
-    public Acteur(Integer id, String identite, Float taille, String url, Date dateNaissance,
-            Set<CastingPrincipal> castingPrincipals, Set<Role> roles) {
+    public Acteur(Integer id, String identite, Float taille, String url) {
         this.id = id;
         this.identite = identite;
         this.taille = taille;
         this.url = url;
         this.dateNaissance = dateNaissance;
-        this.castingPrincipals = castingPrincipals;
         this.roles = roles;
     }
 
