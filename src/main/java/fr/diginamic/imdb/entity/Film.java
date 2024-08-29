@@ -43,6 +43,15 @@ public class Film {
     @JoinColumn(name = "pays_id", nullable = false)
     private Pays pays;
 
+    // Relation ManyToMany avec Film
+    @ManyToMany
+    @JoinTable(
+            name = "Film_Realisateur",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "realisateur_id")
+    )
+    private List<Realisateur> realisateur;
+    
     public Film(String nom, String resume, float rating, Langue langue, Year annee, String url) {
         this.nom = nom;
         this.resume = resume;
@@ -142,4 +151,13 @@ public class Film {
         this.tournages = tournages;
     }
 
+	public List<Realisateur> getRealisateur() {
+		return realisateur;
+	}
+
+	public void setRealisateur(List<Realisateur> realisateur) {
+		this.realisateur = realisateur;
+	}
+
+    
 }

@@ -32,9 +32,8 @@ public class Lieu {
 		super();
 	}
 
-	public Lieu(int id, String nom, Pays pays) {
+	public Lieu(String nom, Pays pays) {
 		super();
-		this.id = id;
 		this.nom = nom;
 		this.pays = pays;
 	}
