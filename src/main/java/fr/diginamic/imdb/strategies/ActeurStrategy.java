@@ -49,10 +49,11 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
         // country is always at the end
         // TODO -> if the lieu is an abbreviation (only two i counted? US and Uk), need
         String country = locationParts[locationParts.length - 1].trim();
-        String cityAndState = String.join(", ", Arrays.copyOf(locationParts, locationParts.length - 1)).trim();
+        // anything that comes before the country is the name of the location
+        String name = String.join(", ", Arrays.copyOf(locationParts, locationParts.length - 1)).trim();
         // to map it to the correct full name.
 
-        Lieu existingLieu = lieuService.findByNom(cityAndState);
+        Lieu existingLieu = lieuService.findByNomAndPaysNom(name, country);
         if (existingLieu != null) {
             ln.setLieu(existingLieu);
         } else {
