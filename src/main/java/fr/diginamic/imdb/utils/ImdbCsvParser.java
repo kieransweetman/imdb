@@ -1,5 +1,6 @@
 package fr.diginamic.imdb.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,20 +17,22 @@ import fr.diginamic.imdb.strategies.CsvProcessingStrategyFactory;
  * We skip the head here and process each line of the CSV file inside the
  * specified strategy
  */
-// @Component
+@Component
 public class ImdbCsvParser {
+    private final CsvProcessingStrategyFactory csvProcessingStrategyFactory;
+
+    @Autowired
+    public ImdbCsvParser(CsvProcessingStrategyFactory csvProcessingStrategyFactory) {
+        this.csvProcessingStrategyFactory = csvProcessingStrategyFactory;
+    }
+
     public void parseFiles(List<String> csvFilePaths) {
+
         for (String csvFilePath : csvFilePaths) {
 
-            ICsvProcessingStrategy strategy = CsvProcessingStrategyFactory.getStrategyForFile(csvFilePath);
-            if (strategy == null) {
-                ImdbException.log(new IllegalArgumentException("No strategy found for file: "
-                        + csvFilePath));
-                continue;
-            } else {
-                System.out.println("Processing file: " + csvFilePath);
-                ImdbException.log(new Exception("Processing file: " + csvFilePath));
-            }
+            ICsvProcessingStrategy strategy = csvProcessingStrategyFactory.getStrategyForFile(csvFilePath);
+
+            System.out.println("Processing file: " + csvFilePath);
 
             try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
 

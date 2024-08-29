@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.Lieu;
@@ -13,17 +14,23 @@ import fr.diginamic.imdb.entity.LieuNaissance;
 import fr.diginamic.imdb.service.ActeurService;
 import fr.diginamic.imdb.service.LieuNaissanceService;
 import fr.diginamic.imdb.service.LieuService;
+import fr.diginamic.imdb.service.PaysService;
 
+@Component
 public class ActeurStrategy implements ICsvProcessingStrategy {
+    @Autowired
+    private ActeurService acteurService;
 
     @Autowired
-    public ActeurService acteurService;
+    private LieuNaissanceService lieuNaissanceService;
 
     @Autowired
-    public LieuNaissanceService lieuNaissanceService;
+    private LieuService lieuService;
 
-    @Autowired
-    public LieuService lieuService;
+    // @Autowired
+    // public ActeurStrategy(ActeurService acteurService) {
+    // this.acteurService = acteurService;
+    // }
 
     @Override
     public void process(String line) {
@@ -34,7 +41,7 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
 
         // Actor info
         String identite = fields[1];
-        Float taille = Float.parseFloat(fields[4]);
+        Float taille = Float.parseFloat(fields[4].trim() != "" ? fields[4].split(" ")[0] : "0");
         String url = fields[5];
 
         Acteur acteur = new Acteur(identite, taille, url);
@@ -58,23 +65,25 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
         // to map it to the correct full name.
 
         Lieu existingLieu = lieuService.findByNomAndPaysNom(name, country);
+        System.out.println(existingLieu.toString());
+
         if (existingLieu != null) {
             ln.setLieu(existingLieu);
-        } else {
-            lieu.setNom(fields[3]);
-            lieu = lieuService.save(lieu);
-            ln.setLieu(lieu);
         }
 
-        String dateString = fields[2];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse(dateString, formatter);
-        Date dob = Date.valueOf(date);
+        // lieu.setNom(fields[3]);
+        // lieu = lieuService.save(lieu);
+        // ln.setLieu(lieu);
 
-        ln.setActeur(newActeur);
-        ln.setDate(dob);
+        // String dateString = fields[2];
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // LocalDate date = LocalDate.parse(dateString, formatter);
+        // Date dob = Date.valueOf(date);
 
-        lieuNaissanceService.save(ln);
+        // ln.setActeur(newActeur);
+        // ln.setDate(dob);
+
+        // lieuNaissanceService.save(ln);
     }
 
 }

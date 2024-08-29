@@ -1,24 +1,35 @@
 package fr.diginamic.imdb.strategies;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
 /**
  * factory that will return the correct strategy
  */
+@Component
 public class CsvProcessingStrategyFactory {
-    public static ICsvProcessingStrategy getStrategyForFile(String csvFilePath) {
+
+    private final ApplicationContext applicationContext;
+
+    @Autowired
+    public CsvProcessingStrategyFactory(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+    public ICsvProcessingStrategy getStrategyForFile(String csvFilePath) {
         if (csvFilePath.contains("films")) {
-            return new FilmsStrategy();
+            return applicationContext.getBean(FilmsStrategy.class);
         } else if (csvFilePath.contains("acteurs")) {
-            return new ActeurStrategy();
+            return applicationContext.getBean(ActeurStrategy.class);
         } else if (csvFilePath.contains("roles")) {
-            return new RoleStrategy();
+            return applicationContext.getBean(RoleStrategy.class);
         } else if (csvFilePath.contains("pays")) {
-            return new PaysStrategy();
+            return applicationContext.getBean(PaysStrategy.class);
         } else if (csvFilePath.contains("realisateurs")) {
-            return new RealisateurStrategy();
-        } else if (csvFilePath.contains("castingPrincipal")) {
-            return new CastingPrincipalStrategy();
+            return applicationContext.getBean(RealisateurStrategy.class);
         } else {
-            return new FilmRealisateurStrategy();
+            throw new IllegalArgumentException("No strategy found for file: " + csvFilePath);
         }
     }
 }

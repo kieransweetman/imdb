@@ -1,6 +1,7 @@
 package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,10 +33,10 @@ public class Acteur {
     private Date dateNaissance;
 
     // Relations avec d'autres entités
-    @OneToMany(mappedBy = "acteur")
+    @OneToMany(mappedBy = "acteur", fetch = FetchType.EAGER)
     private Set<CastingPrincipal> castingPrincipals = new HashSet<>();
 
-    @OneToMany(mappedBy = "acteur")
+    @OneToMany(mappedBy = "acteur", fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
     public Acteur() {
