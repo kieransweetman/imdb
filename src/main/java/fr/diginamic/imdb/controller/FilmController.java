@@ -17,6 +17,7 @@ import fr.diginamic.imdb.entity.CastingPrincipal;
 import fr.diginamic.imdb.entity.CastingPrincipalId;
 import fr.diginamic.imdb.entity.Film;
 import fr.diginamic.imdb.entity.LieuNaissance;
+import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.entity.Realisateur;
 import fr.diginamic.imdb.service.AbstractService;
 import fr.diginamic.imdb.service.ActeurService;
@@ -44,12 +45,20 @@ public class FilmController {
 	private RoleService roleService;
 
 	@PostMapping
-	public ResponseEntity<Film> createFilm(@RequestBody Film film) {
+public ResponseEntity<Film> createFilm(@RequestBody Film film) {
 
-		Film newFilm = filmService.save(film);
+    Pays pays = filmService.getByNom(film.getPays().getNom()); 
+    if (pays == null) {
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(newFilm);
-	}
+    film.setPays(pays); 
+
+    Film newFilm = filmService.save(film); 
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(newFilm);
+}
 
 	@GetMapping
 	public ResponseEntity<List<Film>> getAllFilm() {
