@@ -8,6 +8,26 @@
         </encoder>
     </appender>
 
+    <!-- Define the appender for the ImdbException class -->
+    <appender name="IMDB_EXCEPTION_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/imdb_exception.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>logs/imdb_exception.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define the logger for the ImdbException class -->
+    <logger name="fr.diginamic.imdb.utils.ImdbException" level="ERROR" additivity="false">
+        <appender-ref ref="IMDB_EXCEPTION_FILE" />
+    </logger>
+
+
     <!-- Root logger configuration -->
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
