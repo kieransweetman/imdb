@@ -83,10 +83,8 @@ public class FilmController {
 
 		if (f != null) {
 			CastingPrincipal castP = new CastingPrincipal();
-			CastingPrincipalId castPiD = new CastingPrincipalId();
-			castPiD.setActeurId(acteur.getId());
-			castPiD.setFilmId(f.getId());
-			castP.setId(castPiD);
+			castP.setActeur(acteur);
+			castP.setFilm(f);
 			castP = castingPrincipalService.save(castP);
 
 			return ResponseEntity.status(HttpStatus.CREATED).body(castP.toString());
@@ -98,9 +96,9 @@ public class FilmController {
 	@DeleteMapping("/{id}/casting/suppress")
 	public ResponseEntity<String> supressCasting(@PathVariable Integer id, @RequestBody Acteur acteur) {
 		Film f = filmService.getById(id);
+		CastingPrincipal castP = castingPrincipalService.findByActeurIdAndFilmId(acteur.getId(), f.getId());
 
 		if (f != null) {
-			CastingPrincipal castP = new CastingPrincipal();
 			CastingPrincipalId castPiD = new CastingPrincipalId();
 			castPiD.setActeurId(acteur.getId());
 			castPiD.setFilmId(f.getId());

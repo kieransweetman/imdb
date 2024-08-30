@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.diginamic.imdb.dto.LieuNaissanceDto;
 import fr.diginamic.imdb.dto.RealisateurDto;
 import fr.diginamic.imdb.dto.RealisateurMapper;
 import fr.diginamic.imdb.entity.Lieu;
@@ -105,12 +104,17 @@ public class RealisateurController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(realisateurDtos);
 	}
 
-	@PutMapping
-	public ResponseEntity<Realisateur> updateRealisateur(@RequestBody Realisateur realisateur) {
+	@PutMapping("/{id}")
+	public ResponseEntity<RealisateurDto> updateRealisateur(@PathVariable Integer id,
+			@RequestBody RealisateurDto realisateur) {
 
-		Realisateur real = realisateurService.save(realisateur);
+		Realisateur r = realisateurService.getById(id);
+		r = realisateurService.updateNonNullFields(r, realisateur);
+		Realisateur real = realisateurService.save(r);
 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(real);
+		RealisateurDto realisateurDto = RealisateurMapper.toResponseDto(real);
+
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(realisateurDto);
 	}
 
 	@DeleteMapping("/{id}")

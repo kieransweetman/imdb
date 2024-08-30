@@ -17,4 +17,5 @@ public class CastingPrincipalService extends AbstractService<CastingPrincipal, C
     protected JpaRepository<CastingPrincipal, CastingPrincipalId> getRepository() {
         return castingPrincipal;
     }
+
 }

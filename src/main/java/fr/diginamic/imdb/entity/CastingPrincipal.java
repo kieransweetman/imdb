@@ -27,8 +27,7 @@ public class CastingPrincipal {
     public CastingPrincipal() {
     }
 
-    public CastingPrincipal(Integer id, Film film, Acteur acteur) {
-        this.id = id;
+    public CastingPrincipal(Film film, Acteur acteur) {
         this.film = film;
         this.acteur = acteur;
     }
