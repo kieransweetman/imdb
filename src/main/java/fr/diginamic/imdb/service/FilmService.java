@@ -2,11 +2,14 @@ package fr.diginamic.imdb.service;
 
 import fr.diginamic.imdb.repository.FilmRepository;
 import fr.diginamic.imdb.entity.Film;
+import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.entity.Role;
 import fr.diginamic.imdb.entity.RoleId;
 import fr.diginamic.imdb.repository.RoleRepository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,12 +20,34 @@ public class FilmService extends AbstractService<Film, Integer> {
 
     @Autowired
     private FilmRepository filmRepository;
+    @Autowired
     private RoleRepository roleRepository;
 
     @Override
     protected JpaRepository<Film, Integer> getRepository() {
         return filmRepository;
     }
+
+    // Récupération du film avec son ID
+    public Film findById(Integer id) {
+        // Assurez-vous que roleRepository est correctement initialisé
+        Film film = filmRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Film introuvable"));
+            List<Role> roleList = roleRepository.findByFilmId(id);
+            Set<Role> roleSet = new HashSet<>(roleList);
+            film.setRoles(roleSet);
+            return film;
+    }
+
+    public Film getByNom(String nom) {
+        if (nom == null || nom.isEmpty()) {
+            throw new IllegalArgumentException("Film ne peut pas être vide");
+        }
+
+        return filmRepository.findByNom(nom);
+    }
+
+    
    // Ajouter un rôle à un film donné
    public Role addRoleToFilm(Integer id, Role role) {
     Film film = filmRepository.findById(id)
@@ -58,7 +83,14 @@ public void deleteRole(RoleId roleId) {
 }
 
 // Trouver les rôles pour un film donné
-public List<Role> findRolesByFilm(Integer filmId) {
-    return roleRepository.findByFilmId(filmId);
+public List<Role> findRolesByFilm(Integer id) {
+    return roleRepository.findByFilmId(id);
+}
+
+public Film findFilmById(Integer filmId) {
+	// TODO Auto-generated method stub
+	throw new UnsupportedOperationException("Unimplemented method 'findFilmById'");
 }
 }
+
+

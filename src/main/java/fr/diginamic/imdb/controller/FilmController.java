@@ -4,6 +4,8 @@ import fr.diginamic.imdb.entity.Film;
 import fr.diginamic.imdb.entity.Role;
 import fr.diginamic.imdb.entity.RoleId;
 import fr.diginamic.imdb.service.FilmService;
+import fr.diginamic.imdb.service.PaysService;
+import fr.diginamic.imdb.service.PaysService;
 import fr.diginamic.imdb.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import fr.diginamic.imdb.dto.ActeurDto;
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.CastingPrincipal;
 import fr.diginamic.imdb.entity.CastingPrincipalId;
@@ -44,10 +48,13 @@ public class FilmController {
 	@Autowired
 	private RoleService roleService;
 
+	@Autowired
+	private PaysService paysService;
+
 	@PostMapping
 public ResponseEntity<Film> createFilm(@RequestBody Film film) {
 
-    Pays pays = filmService.getByNom(film.getPays().getNom()); 
+    Pays pays = paysService.getByNom(film.getPays().getNom());
     if (pays == null) {
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -59,6 +66,17 @@ public ResponseEntity<Film> createFilm(@RequestBody Film film) {
 
     return ResponseEntity.status(HttpStatus.CREATED).body(newFilm);
 }
+@GetMapping("/films/{nom}")
+
+    public ResponseEntity<Film> getFilmByNom(@PathVariable String nom) {
+        Film film = filmService.getByNom(nom);
+        if (film != null) {
+            return ResponseEntity.ok(film);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 	@GetMapping
 	public ResponseEntity<List<Film>> getAllFilm() {
@@ -156,23 +174,29 @@ public ResponseEntity<Film> createFilm(@RequestBody Film film) {
 
 	}
 
-	// Endpoint pour obtenir les détails d'un film par ID
+	// Obtenir les détails d'un film par ID
 	@GetMapping("/{id}")
 	public ResponseEntity<Film> getFilmById(@PathVariable Integer id) {
-		Film film = filmService.getById(id);
-		return new ResponseEntity<>(film, HttpStatus.OK);
-	}
-
-	// Endpoint pour ajouter un rôle à un film
+		Film film = filmService.findById(id);
+    if (film != null) {
+        return new ResponseEntity<>(film, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+	// Ajouter un rôle à un film
 	@PostMapping("/{id}/roles")
-	public ResponseEntity<Role> addRoleToFilm(@PathVariable Integer id,
-			@RequestParam Integer acteurId,
-			@RequestParam String personnage) {
-		Role role = roleService.addRoleToFilm(id, acteurId, personnage);
-		return new ResponseEntity<>(role, HttpStatus.CREATED);
-	}
+public ResponseEntity<Role> addRoleToFilm(@PathVariable Integer id,
+                                           @RequestBody ActeurDto acteurDto) {
+    if (id == null || acteurDto.getId() == null || acteurDto.getPersonnage() == null) {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    
+    Role role = roleService.addRoleToFilm(id, acteurDto.getId(), acteurDto.getPersonnage());
+    return new ResponseEntity<>(role, HttpStatus.CREATED);
+}
 
-	// Endpoint pour mettre à jour un rôle dans un film
+	// Mettre à jour un rôle dans un film
 	@PutMapping("/{id}/roles/{acteurId}")
 	public ResponseEntity<Role> updateRole(@PathVariable Integer id,
 			@PathVariable Integer acteurId,
@@ -182,7 +206,7 @@ public ResponseEntity<Film> createFilm(@RequestBody Film film) {
 		return new ResponseEntity<>(updatedRole, HttpStatus.OK);
 	}
 
-	// Endpoint pour supprimer un rôle d'un film
+	// Supprimer un rôle d'un film
 	@DeleteMapping("/{id}/roles/{acteurId}")
 	public ResponseEntity<Void> deleteRole(@PathVariable Integer id,
 			@PathVariable Integer acteurId) {
@@ -191,11 +215,18 @@ public ResponseEntity<Film> createFilm(@RequestBody Film film) {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	// Endpoint pour obtenir tous les rôles associés à un film
-	@GetMapping("/{id}/roles")
-	public ResponseEntity<List<Role>> getRolesByFilm(@PathVariable Integer id) {
-		List<Role> roles = roleService.findRolesByFilm(film);
-		return new ResponseEntity<>(roles, HttpStatus.OK);
-	}
+	
+// Endpoint pour obtenir tous les rôles associés à un film
+@GetMapping("/{id}/roles")
+public ResponseEntity<List<Role>> getRolesByFilm(@PathVariable Integer id) {
+    // Récupérer les rôles associés au film à partir du service
+    List<Role> roles = roleService.findRolesByFilm(id);
+
+    // Retourner la liste des rôles avec un statut HTTP 200 (OK)
+    return new ResponseEntity<>(roles, HttpStatus.OK);
 
 }
+}
+	
+
+

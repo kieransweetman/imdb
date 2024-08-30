@@ -79,6 +79,5 @@ public class Role {
 
     public void setCharacterName(String characterName) {
         this.characterName = characterName;
-    }
-
+    }  
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -24,6 +25,8 @@ public class RoleService extends AbstractService<Role, RoleId> {
     private ActeurRepository acteurRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private FilmService filmService;
 
     @Override
     protected JpaRepository<Role, RoleId> getRepository() {
@@ -39,17 +42,27 @@ public class RoleService extends AbstractService<Role, RoleId> {
      * @return Role ajouté
      */
     public Role addRoleToFilm(Integer filmId, Integer acteurId, String personnage) {
-        // Vérifier si le film et l'acteur existent
-        Film film = filmRepository.findById(filmId)
-                .orElseThrow(() -> new RuntimeException("Film not found with id: " + filmId));
-        Acteur acteur = acteurRepository.findById(acteurId)
-                .orElseThrow(() -> new RuntimeException("Acteur not found with id: " + acteurId));
+        // Vérifiez que le film et l'acteur existent
+        Film film = filmRepository.findById(filmId).orElseThrow(() -> new RuntimeException("Film not found"));
+        Acteur acteur = acteurRepository.findById(acteurId).orElseThrow(() -> new RuntimeException("Acteur not found"));
 
-        // Créer un nouvel objet Role
-        Role role = new Role(film, acteur, personnage);
+        // Créez le rôle et associez-le au film et à l'acteur
+        Role role = new Role();
+        role.setFilm(film);
+        role.setActeur(acteur);
+        role.setPersonnage(personnage);
 
-        // Sauvegarder le rôle
+        // Sauvegardez le rôle dans la base de données
         return roleRepository.save(role);
+    }
+    private Film findFilmById(Integer id) {
+        // Implémenter la méthode pour récupérer un Film par son ID
+        return new Film(); // Remplacer par la logique réelle
+    }
+
+    private Acteur findActeurById(Integer id) {
+        // Implémenter la méthode pour récupérer un Acteur par son ID
+        return new Acteur(); // Remplacer par la logique réelle
     }
 
     /**
@@ -91,7 +104,15 @@ public class RoleService extends AbstractService<Role, RoleId> {
      * @param filmId ID du film
      * @return Liste des rôles associés au film
      */
-    public List<Role> findRolesByFilm(Film film) {
-        return roleRepository.findByFilmId(film.getId());
+    public List<Role> findRolesByFilm(Integer filmId) {
+        // Trouver le film par son ID
+        Film film = filmService.findById(filmId);
+        
+        if (film == null) {
+            System.out.println("Film introuvable");
+        }
+        
+        
+        return roleRepository.findByFilm(film);
     }
 }

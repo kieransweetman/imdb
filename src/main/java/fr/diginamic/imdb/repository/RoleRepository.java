@@ -16,5 +16,6 @@ public interface RoleRepository extends JpaRepository<Role, RoleId> {
   // Trouver les rôles par film
     List<Role> findByFilmId(Integer filmId);
     Optional<Role> findByFilmIdAndActeurId(Integer filmId, Integer acteurId);
+    List<Role> findByFilm(Film film);
 }
 
