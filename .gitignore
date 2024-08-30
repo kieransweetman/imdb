@@ -36,3 +36,5 @@ build/
 .vscode/
 logs/spring-boot-app.log
 logs/sql-errors.log
+logs/imdb_exception.log
+src/main/resources/application-dev.properties
