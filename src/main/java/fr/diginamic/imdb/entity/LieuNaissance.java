@@ -3,6 +3,8 @@ package fr.diginamic.imdb.entity;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
@@ -24,9 +26,14 @@ public class LieuNaissance {
     @JoinColumn(name = "acteur_id", nullable = true)
     private Acteur acteur;
 
-    @ManyToOne
-    @MapsId("realisateurId")
-    @JoinColumn(name = "realisateur_id", nullable = true)
+    @ManyToMany
+    //@MapsId("realisateurId")
+    //@JoinColumn(name = "realisateur_id", nullable = true)
+    @JoinTable(
+            name = "realisateur",
+            joinColumns = @JoinColumn(name = "lieu_id"),
+            inverseJoinColumns = @JoinColumn(name = "realisateur_id")
+    )
     private Realisateur realisateur;
 
     private Date date;

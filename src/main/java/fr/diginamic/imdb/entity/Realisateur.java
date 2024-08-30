@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name="realisateur")
+@Table(name = "realisateur")
 public class Realisateur {
 
     @Id
@@ -21,9 +21,8 @@ public class Realisateur {
     private String url;
 
     // Relation avec Lieu (plusieurs réalisateurs peuvent être nés dans un seul lieu)
-    @ManyToOne
-    @JoinColumn(name = "lieu_naissance_id")
-    private Lieu lieuNaissance;
+    @ManyToMany(mappedBy = "realisateur")
+    private LieuNaissance lieuNaissance;
 
     // Relation ManyToMany avec Film
     @ManyToMany
@@ -38,7 +37,7 @@ public class Realisateur {
 		super();
 	}
 
-	public Realisateur(String identite, Date dateNaissance, String url, Lieu lieuNaissance) {
+	public Realisateur(String identite, Date dateNaissance, String url, LieuNaissance lieuNaissance) {
 		super();
 		this.identite = identite;
 		this.dateNaissance = dateNaissance;
@@ -79,11 +78,11 @@ public class Realisateur {
         this.url = url;
     }
 
-    public Lieu getLieuNaissance() {
+    public LieuNaissance getLieuNaissance() {
         return lieuNaissance;
     }
 
-    public void setLieuNaissance(Lieu lieuNaissance) {
+    public void setLieuNaissance(LieuNaissance lieuNaissance) {
         this.lieuNaissance = lieuNaissance;
     }
 
