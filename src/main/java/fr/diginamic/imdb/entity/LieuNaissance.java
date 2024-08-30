@@ -19,17 +19,14 @@ public class LieuNaissance {
     private int id;
 
     @OneToOne
-    // @MapsId("lieuId")
     @JoinColumn(name = "lieu_id", nullable = true)
     private Lieu lieu;
 
     @OneToOne
-    // @MapsId("acteurId")
     @JoinColumn(name = "acteur_id", nullable = true)
     private Acteur acteur;
 
     @OneToOne
-    // @MapsId("realisateurId")
     @JoinColumn(name = "realisateur_id", nullable = true)
     private Realisateur realisateur;
 
