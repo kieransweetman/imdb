@@ -16,4 +16,8 @@ public class GenreService extends AbstractService<Genre, Integer> {
     protected JpaRepository<Genre, Integer> getRepository() {
         return genreRepository;
     }
+
+    public Genre findByNom(String nom) {
+        return genreRepository.findByNom(nom);
+    }
 }

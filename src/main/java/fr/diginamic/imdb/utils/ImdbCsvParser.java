@@ -19,12 +19,8 @@ import fr.diginamic.imdb.strategies.CsvProcessingStrategyFactory;
  */
 @Component
 public class ImdbCsvParser {
-    private final CsvProcessingStrategyFactory csvProcessingStrategyFactory;
-
     @Autowired
-    public ImdbCsvParser(CsvProcessingStrategyFactory csvProcessingStrategyFactory) {
-        this.csvProcessingStrategyFactory = csvProcessingStrategyFactory;
-    }
+    private CsvProcessingStrategyFactory csvProcessingStrategyFactory;
 
     public void parseFiles(List<String> csvFilePaths) {
 
@@ -40,13 +36,15 @@ public class ImdbCsvParser {
                 br.readLine();
 
                 String line;
+                int lineIndex = 1; // Initialize line counter (starting from 1 if headers are skipped)
                 while ((line = br.readLine()) != null) {
                     try {
-                        strategy.process(line);
+                        strategy.process(line, lineIndex);
                     } catch (Exception e) {
-                        ImdbException.log(e);
+                        ImdbException.log(e.getMessage() + " at line: " + lineIndex);
+                    } finally {
+                        lineIndex++;
                     }
-
                 }
             } catch (IOException e) {
                 ImdbException.log(e);

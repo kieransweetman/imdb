@@ -10,12 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CsvProcessingStrategyFactory {
 
-    private final ApplicationContext applicationContext;
-
     @Autowired
-    public CsvProcessingStrategyFactory(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+    private ApplicationContext applicationContext;
 
     public ICsvProcessingStrategy getStrategyForFile(String csvFilePath) {
         if (csvFilePath.contains("films")) {

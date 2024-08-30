@@ -1,9 +1,11 @@
 package fr.diginamic.imdb.entity;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,10 @@ public class Film {
     private int id;
 
     private String nom;
+
+    private String imdb_id;
+
+    @Column(columnDefinition = "TEXT")
     private String resume;
     private float rating;
 
@@ -129,6 +135,23 @@ public class Film {
 
     public void setGenre(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public void addGenre(Genre genre) {
+        if (this.genres == null) {
+            this.genres = new ArrayList<>();
+        }
+        if (!this.genres.contains(genre)) {
+            this.genres.add(genre);
+        }
+    }
+
+    public String getImdb_id() {
+        return imdb_id;
+    }
+
+    public void setImdb_id(String imdb_id) {
+        this.imdb_id = imdb_id;
     }
 
     public Pays getPays() {

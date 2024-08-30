@@ -30,10 +30,9 @@ public class Realisateur {
         super();
     }
 
-    public Realisateur(String identite, LocalDate dateNaissance, String url, Lieu lieuNaissance) {
+    public Realisateur(String identite, String url) {
         super();
         this.identite = identite;
-        this.dateNaissance = dateNaissance;
         this.url = url;
     }
 

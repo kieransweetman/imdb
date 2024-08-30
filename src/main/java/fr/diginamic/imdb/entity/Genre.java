@@ -16,7 +16,6 @@ import jakarta.persistence.Table;
  *
  * @author mattb
  */
-import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -33,6 +32,10 @@ public class Genre {
     // Relation avec Film via Avoir
     @ManyToMany(mappedBy = "genres")
     private List<Film> films;
+
+    public Genre() {
+        super();
+    }
 
     public Genre(Integer id, String nom) {
         this.id = id;

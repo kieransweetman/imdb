@@ -17,11 +17,15 @@ public class ImdbException {
     }
 
     /**
-     * Log an exception, will be logged in `/logs/log.txt`
+     * Log an exception, will be logged in `/logs/imdb_exception.txt`
      * 
      * @param e Exception
      */
     public static void log(Exception e) {
         logger.error("Line problem occurred", e);
+    }
+
+    public static void log(String message) {
+        logger.error(message);
     }
 }
