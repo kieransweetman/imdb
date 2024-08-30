@@ -13,9 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 import fr.diginamic.imdb.dto.ActeurDto;
+import fr.diginamic.imdb.dto.RoleDto;
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.CastingPrincipal;
 import fr.diginamic.imdb.entity.CastingPrincipalId;
@@ -28,6 +30,9 @@ import fr.diginamic.imdb.service.ActeurService;
 import fr.diginamic.imdb.service.CastingPrincipalService;
 import fr.diginamic.imdb.service.FilmService;
 import fr.diginamic.imdb.service.RealisateurService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/films")
@@ -216,17 +221,36 @@ public ResponseEntity<Role> addRoleToFilm(@PathVariable Integer id,
 	}
 
 	
-// Endpoint pour obtenir tous les rôles associés à un film
+// Obtenir tous les rôles associés à un film
 @GetMapping("/{id}/roles")
-public ResponseEntity<List<Role>> getRolesByFilm(@PathVariable Integer id) {
-    // Récupérer les rôles associés au film à partir du service
-    List<Role> roles = roleService.findRolesByFilm(id);
+public ResponseEntity<List<RoleDto>> getRolesByFilm(@PathVariable Integer id) {
+	// Récupérer les rôles associés au film à partir du service
+	List<Role> roles = roleService.findRolesByFilm(id);
 
-    // Retourner la liste des rôles avec un statut HTTP 200 (OK)
-    return new ResponseEntity<>(roles, HttpStatus.OK);
+	// Convertir la liste des rôles en liste de RoleDto
+	List<RoleDto> roleDtos = roles.stream()
+			.map(this::convertToDto)
+			.collect(Collectors.toList());
 
+	// Retourner la liste des RoleDto avec un statut HTTP 200 (OK)
+	return new ResponseEntity<>(roleDtos, HttpStatus.OK);
+}
+
+private RoleDto convertToDto(Role role) {
+	return new RoleDto(
+			role.getFilm().getNom(),
+			role.getActeur().getIdentite(), 
+			role.getCharacterName(),
+			role.getPersonnage()
+	);
+}
+@PostMapping("path")
+public String postMethodName(@RequestBody String entity) {
+    
+    return entity;
 }
 }
+
 	
 
 
