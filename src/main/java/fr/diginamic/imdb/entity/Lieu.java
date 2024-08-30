@@ -22,23 +22,25 @@ public class Lieu {
 
     @OneToMany(mappedBy = "lieu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tourner> tournages;
-   
+
     @ManyToOne
     @JoinColumn(name = "id_pays")
     private Pays pays;
-    
-    
+
+    @OneToMany(mappedBy = "lieu", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LieuNaissance> lieuNaissances;
+
     public Lieu() {
-		super();
-	}
+        super();
+    }
 
-	public Lieu(String nom, Pays pays) {
-		super();
-		this.nom = nom;
-		this.pays = pays;
-	}
+    public Lieu(String nom, Pays pays) {
+        super();
+        this.nom = nom;
+        this.pays = pays;
+    }
 
-	public int getId() {
+    public int getId() {
         return id;
     }
 
@@ -62,19 +64,17 @@ public class Lieu {
         this.tournages = tournages;
     }
 
-	public Pays getPays() {
-		return pays;
-	}
+    public Pays getPays() {
+        return pays;
+    }
 
-	public void setPays(Pays pays) {
-		this.pays = pays;
-	}
+    public void setPays(Pays pays) {
+        this.pays = pays;
+    }
 
-	@Override
-	public String toString() {
-		return "Lieu [id=" + id + ", nom=" + nom + ", pays=" + pays + "]";
-	}
+    @Override
+    public String toString() {
+        return "Lieu [id=" + id + ", nom=" + nom + ", pays=" + pays + "]";
+    }
 
-    
-    
 }
