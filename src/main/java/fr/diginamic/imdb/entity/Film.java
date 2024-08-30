@@ -27,7 +27,7 @@ public class Film {
 
     private String nom;
 
-    private String imdb_id;
+    private String imdbId;
 
     @Column(columnDefinition = "TEXT")
     private String resume;
@@ -164,12 +164,12 @@ public class Film {
         }
     }
 
-    public String getImdb_id() {
-        return imdb_id;
+    public String getImdbId() {
+        return imdbId;
     }
 
-    public void setImdb_id(String imdb_id) {
-        this.imdb_id = imdb_id;
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public Pays getPays() {

@@ -17,4 +17,8 @@ public class ActeurService extends AbstractService<Acteur, Integer> {
         return acteurRepository;
     };
 
+    public Acteur findByImdbId(String imdbId) {
+        return acteurRepository.findByImdbId(imdbId);
+    }
+
 }

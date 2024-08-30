@@ -8,4 +8,6 @@ import fr.diginamic.imdb.entity.Acteur;
 @Repository
 public interface ActeurRepository extends JpaRepository<Acteur, Integer> {
 
+    Acteur findByImdbId(String imdbId);
+
 }

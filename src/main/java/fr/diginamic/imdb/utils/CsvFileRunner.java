@@ -33,10 +33,11 @@ public class CsvFileRunner implements CommandLineRunner {
     @EventListener(ApplicationReadyEvent.class)
     public void runAfterStartup() throws Exception {
 
-        if (isDatabasePopulated()) {
-            System.out.println("Database is already populated. Skipping CSV file parsing.");
-            return;
-        }
+        // if (isDatabasePopulated()) {
+        // System.out.println("Database is already populated. Skipping CSV file
+        // parsing.");
+        // return;
+        // }
 
         System.out.println("Starting csv parsing");
 
@@ -45,11 +46,9 @@ public class CsvFileRunner implements CommandLineRunner {
                 "src/main/resources/data/pays.csv",
                 "src/main/resources/data/acteurs.csv",
                 "src/main/resources/data/realisateurs.csv",
-                "src/main/resources/data/films.csv"
-        // "src/main/resources/data/castingPrincipal.csv",
-        // "src/main/resources/data/film_realisateurs.csv",
-        // "src/main/resources/data/roles.csv"
-        );
+                "src/main/resources/data/films.csv",
+                "src/main/resources/data/castingPrincipal.csv",
+                "src/main/resources/data/roles.csv");
 
         imdbCsvParser.parseFiles(csvFilePaths);
         System.out.println("Finished processing all files.");

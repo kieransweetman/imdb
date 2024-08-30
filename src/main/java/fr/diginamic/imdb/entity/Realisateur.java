@@ -12,6 +12,8 @@ public class Realisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String imdbId;
+
     private String identite;
 
     private LocalDate dateNaissance;
@@ -67,6 +69,14 @@ public class Realisateur {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getImddId() {
+        return imdbId;
+    }
+
+    public void setImddId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public LieuNaissance getLieuNaissance() {

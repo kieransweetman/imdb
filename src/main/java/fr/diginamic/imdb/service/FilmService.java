@@ -16,4 +16,8 @@ public class FilmService extends AbstractService<Film, Integer> {
     protected JpaRepository<Film, Integer> getRepository() {
         return filmRepository;
     }
+
+    public Film findByImdbId(String imdbId) {
+        return filmRepository.findByImdbId(imdbId);
+    }
 }

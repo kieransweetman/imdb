@@ -2,23 +2,26 @@ package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "role")
 public class Role {
 
-    @EmbeddedId
-    private RoleId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
-    @MapsId("filmId")
     @JoinColumn(name = "id_film")
     private Film film;
 
     @ManyToOne
-    @MapsId("acteurId")
     @JoinColumn(name = "id_acteur")
     private Acteur acteur;
 
@@ -27,11 +30,11 @@ public class Role {
     public Role() {
     }
 
-    public RoleId getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(RoleId id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -2,6 +2,9 @@ package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -9,33 +12,32 @@ import jakarta.persistence.MapsId;
 @Entity
 public class CastingPrincipal {
 
-    @EmbeddedId
-    private CastingPrincipalId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
-    @MapsId("filmId")
     @JoinColumn(name = "id_film")
     private Film film;
 
     @ManyToOne
-    @MapsId("acteurId")
     @JoinColumn(name = "id_acteur")
     private Acteur acteur;
 
     public CastingPrincipal() {
     }
 
-    public CastingPrincipal(CastingPrincipalId id, Film film, Acteur acteur) {
+    public CastingPrincipal(Integer id, Film film, Acteur acteur) {
         this.id = id;
         this.film = film;
         this.acteur = acteur;
     }
 
-    public CastingPrincipalId getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(CastingPrincipalId id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

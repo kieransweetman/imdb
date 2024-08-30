@@ -3,7 +3,6 @@ package fr.diginamic.imdb.strategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.Lieu;
 import fr.diginamic.imdb.entity.LieuNaissance;
 import fr.diginamic.imdb.entity.Pays;
@@ -39,10 +38,12 @@ public class RealisateurStrategy implements ICsvProcessingStrategy {
         String[] fields = line.split(";");
 
         // Actor info
+        String imdbString = fields[0];
         String identite = fields[1];
         String url = fields[4];
 
         Realisateur realisateur = new Realisateur(identite, url);
+        realisateur.setImddId(imdbString);
         Realisateur newRealisateur = realisateurService.save(realisateur);
 
         LieuNaissance ln = new LieuNaissance();

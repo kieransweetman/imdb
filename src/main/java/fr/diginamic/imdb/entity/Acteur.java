@@ -25,6 +25,8 @@ public class Acteur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String imdbId;
+
     private String identite;
 
     private Float taille;
@@ -86,6 +88,14 @@ public class Acteur {
 
     public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public Set<CastingPrincipal> getCastingPrincipals() {

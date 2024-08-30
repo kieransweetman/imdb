@@ -46,7 +46,7 @@ public class FilmsStrategy implements ICsvProcessingStrategy {
 
         String idImdb = fields[0];
         if (idImdb != "" && !idImdb.isEmpty()) {
-            film.setImdb_id(idImdb);
+            film.setImdbId(idImdb);
         }
 
         String nom = fields[1];
@@ -67,7 +67,7 @@ public class FilmsStrategy implements ICsvProcessingStrategy {
         film.setLangue(langue);
 
         String genres = fields[6];
-        if (genres != "" && !genres.isEmpty()) {
+        if (genres != null && !genres.isEmpty()) {
             String[] genresArray = genres.split(",");
             Genre g = new Genre();
             for (String genre : genresArray) {
@@ -84,7 +84,7 @@ public class FilmsStrategy implements ICsvProcessingStrategy {
         }
 
         String rating = fields[3];
-        if (rating != "" && !rating.isEmpty()) {
+        if (rating != null && !rating.isEmpty()) {
             try {
                 float r = Float.parseFloat(rating.replace(",", ".").trim());
                 film.setRating(r);
@@ -96,13 +96,13 @@ public class FilmsStrategy implements ICsvProcessingStrategy {
         }
 
         String url = fields[4];
-        if (url != "" && !url.isEmpty()) {
+        if (url != null && !url.isEmpty()) {
             film.setUrl(url);
         }
 
         String paysString = fields[9];
         Pays pays;
-        if (paysString != "" && !paysString.isEmpty()) {
+        if (paysString != null && !paysString.isEmpty()) {
             Pays existingPays = paysService.findByNom(paysString);
             if (existingPays == null) {
                 pays = new Pays();
@@ -123,7 +123,7 @@ public class FilmsStrategy implements ICsvProcessingStrategy {
         String[] locationParts;
         Tourner tourner = new Tourner();
         Lieu lieu = new Lieu();
-        if (lieuTournage != "" && !lieuTournage.isEmpty()) {
+        if (lieuTournage != null && !lieuTournage.isEmpty()) {
 
             locationParts = lieuTournage.split(",");
             // country is always at the end

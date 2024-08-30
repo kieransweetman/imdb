@@ -24,6 +24,8 @@ public class CsvProcessingStrategyFactory {
             return applicationContext.getBean(PaysStrategy.class);
         } else if (csvFilePath.contains("realisateurs")) {
             return applicationContext.getBean(RealisateurStrategy.class);
+        } else if (csvFilePath.contains("castingPrincipal")) {
+            return applicationContext.getBean(CastingPrincipalStrategy.class);
         } else {
             throw new IllegalArgumentException("No strategy found for file: " + csvFilePath);
         }

@@ -46,6 +46,7 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
         String[] fields = line.split(";");
 
         // Actor info
+        String imdbString = fields[0];
         String identite = fields[1];
         Float taille = null;
         if (fields[4] != null && !fields[4].isEmpty()) {
@@ -61,6 +62,7 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
 
         String url = fields[5];
         Acteur acteur = new Acteur(identite, taille, url);
+        acteur.setImdbId(imdbString);
         Acteur newActeur = acteurService.save(acteur);
         String dateString = fields[2];
 
