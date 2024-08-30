@@ -16,36 +16,31 @@ public class Realisateur {
 
     private String identite;
 
-    private Date dateNaissance;
+    private LocalDate dateNaissance;
 
     private String url;
 
-    // Relation avec Lieu (plusieurs réalisateurs peuvent être nés dans un seul lieu)
-    @ManyToMany(mappedBy = "realisateur")
+    @OneToOne(mappedBy = "realisateur", cascade = CascadeType.ALL, orphanRemoval = true)
     private LieuNaissance lieuNaissance;
 
     // Relation ManyToMany avec Film
     @ManyToMany
-    @JoinTable(
-            name = "Film_Realisateur",
-            joinColumns = @JoinColumn(name = "realisateur_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id")
-    )
+    @JoinTable(name = "Film_Realisateur", joinColumns = @JoinColumn(name = "realisateur_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Film> films;
 
     public Realisateur() {
-		super();
-	}
+        super();
+    }
 
-	public Realisateur(String identite, Date dateNaissance, String url, LieuNaissance lieuNaissance) {
-		super();
-		this.identite = identite;
-		this.dateNaissance = dateNaissance;
-		this.url = url;
-		this.lieuNaissance = lieuNaissance;
-	}
 
-	// Getters et setters
+    public Realisateur(String identite, LocalDate dateNaissance, String url, Lieu lieuNaissance) {
+        super();
+        this.identite = identite;
+        this.dateNaissance = dateNaissance;
+        this.url = url;
+    }
+
+    // Getters et setters
     public Integer getId() {
         return id;
     }
@@ -62,11 +57,11 @@ public class Realisateur {
         this.identite = identite;
     }
 
-    public Date getDateNaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
