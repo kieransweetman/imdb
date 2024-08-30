@@ -96,17 +96,17 @@ public class FilmController {
 	@DeleteMapping("/{id}/casting/suppress")
 	public ResponseEntity<String> supressCasting(@PathVariable Integer id, @RequestBody Acteur acteur) {
 		Film f = filmService.getById(id);
+		// TODO -> finish deletion of a casting.
 		CastingPrincipal castP = castingPrincipalService.findByActeurIdAndFilmId(acteur.getId(), f.getId());
-
 		if (f != null) {
-			CastingPrincipalId castPiD = new CastingPrincipalId();
-			castPiD.setActeurId(acteur.getId());
-			castPiD.setFilmId(f.getId());
-			castP.setId(castPiD);
+			// CastingPrincipal castP = new CastingPrincipal();
+			// castPiD.setActeurId(acteur.getId());
+			// castPiD.setFilmId(f.getId());
+			// castP.setId(castPiD);
 
-			castingPrincipalService.deleteById(castPiD);
+			// castingPrincipalService.deleteById(castPiD);
 
-			return ResponseEntity.status(HttpStatus.CREATED).body(castP.toString());
+			return ResponseEntity.status(HttpStatus.CREATED).body(f.toString());
 		} else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Casting Principal");
 

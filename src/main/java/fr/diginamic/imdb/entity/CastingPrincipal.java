@@ -56,4 +56,9 @@ public class CastingPrincipal {
         this.acteur = acteur;
     }
 
+    @Override
+    public String toString() {
+        return "CastingPrincipal [id=" + id + ", film=" + film + ", acteur=" + acteur.getIdentite() + "]";
+    }
+
 }
