@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -18,16 +19,16 @@ public class LieuNaissance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "lieu_id", nullable = true)
     private Lieu lieu;
 
     @OneToOne
-    @JoinColumn(name = "acteur_id", nullable = true)
+    @JoinColumn(name = "acteur_id", nullable = true, unique = true)
     private Acteur acteur;
 
     @OneToOne
-    @JoinColumn(name = "realisateur_id", nullable = true)
+    @JoinColumn(name = "realisateur_id", nullable = true, unique = true)
     private Realisateur realisateur;
 
     private LocalDate date;

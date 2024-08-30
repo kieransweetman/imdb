@@ -27,7 +27,7 @@ public class Lieu {
     @JoinColumn(name = "id_pays")
     private Pays pays;
 
-    @OneToMany(mappedBy = "lieu", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "lieu", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = LieuNaissance.class)
     private List<LieuNaissance> lieuNaissances;
 
     public Lieu() {
