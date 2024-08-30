@@ -68,8 +68,7 @@ public class RealisateurController {
 				l = lieuService.save(l);
 			}
 
-			LieuNaissance existingLn = lieuNaissanceService.findByRealisateurAndLieu(r,
-					l);
+			LieuNaissance existingLn = lieuNaissanceService.findByRealisateurAndLieu(r, l);
 			if (existingLn == null) {
 				ln.setLieu(l);
 				ln.setRealisateur(r);
