@@ -49,19 +49,24 @@ public class RealisateurController {
 		
 		if (realisateur.getLieuNaissance() != null) {
 			
+			LieuNaissance lN = realisateur.getLieuNaissance();
+			realisateur.setLieuNaissance(null);
+			
 			real = realisateurService.save(realisateur);
 		
-			lieuNaiss.setRealisateur(realisateur);
-			lieu = lieuService.findByNom(realisateur.getLieuNaissance().getNom());
+			System.out.println(lN.toString());
+			
+			//lieuNaiss.setRealisateur(realisateur);
+			//lieu = lieuService.findByNom(realisateur.getLieuNaissance().getNom());
 			
 			//lieuService.save(lieu);
 			
-			lieuNaissId = lieuNaiss.getId();
+			//lieuNaissId = lieuNaiss.getId();
 			
-			lieuNaiss.setLieu(lieu);
-			lieuNaiss.setDate(realisateur.getDateNaissance());
+			//lieuNaiss.setLieu(lieu);
+			//lieuNaiss.setDate(realisateur.getDateNaissance());
 			
-			lieuNaissanceService.save(lieuNaiss);
+			//lieuNaissanceService.save(lieuNaiss);
 
 			
 			

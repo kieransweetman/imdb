@@ -31,6 +31,7 @@ public class Film {
     private Langue langue;
     private Year annee;
     private String url;
+    private Integer imdb;
 
     @ManyToMany
     @JoinTable(name = "Film_Genre", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
@@ -45,20 +46,33 @@ public class Film {
 
     // Relation ManyToMany avec Film
     @ManyToMany
-    @JoinTable(
-            name = "Film_Realisateur",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "realisateur_id")
-    )
+    @JoinTable(name = "Film_Realisateur", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "realisateur_id"))
     private List<Realisateur> realisateur;
-    
-    public Film(String nom, String resume, float rating, Langue langue, Year annee, String url) {
+
+    public Film(String nom, String resume, float rating, Langue langue, Year annee, String url, Integer imdb) {
         this.nom = nom;
         this.resume = resume;
         this.rating = rating;
         this.langue = langue;
         this.annee = annee;
         this.url = url;
+        this.imdb = imdb;
+    }
+
+    public Integer getImdb() {
+        return imdb;
+    }
+
+    public void setImdb(Integer imdb) {
+        this.imdb = imdb;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public Film() {
@@ -151,13 +165,12 @@ public class Film {
         this.tournages = tournages;
     }
 
-	public List<Realisateur> getRealisateur() {
-		return realisateur;
-	}
+    public List<Realisateur> getRealisateur() {
+        return realisateur;
+    }
 
-	public void setRealisateur(List<Realisateur> realisateur) {
-		this.realisateur = realisateur;
-	}
+    public void setRealisateur(List<Realisateur> realisateur) {
+        this.realisateur = realisateur;
+    }
 
-    
 }

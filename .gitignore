@@ -6,6 +6,7 @@ target/
 
 ### DB ###
 /src/main/resources/application.properties
+/src/main/resources/application-dev.properties
 
 ### STS ###
 .apt_generated
@@ -34,7 +35,6 @@ build/
 
 ### VS Code ###
 .vscode/
-logs/spring-boot-app.log
-logs/sql-errors.log
-logs/imdb_exception.log
+
+logs/*
 src/main/resources/application-dev.properties
