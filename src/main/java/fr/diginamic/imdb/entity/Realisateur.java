@@ -1,8 +1,6 @@
 package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.*;
-
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,7 +29,6 @@ public class Realisateur {
     public Realisateur() {
         super();
     }
-
 
     public Realisateur(String identite, LocalDate dateNaissance, String url, Lieu lieuNaissance) {
         super();

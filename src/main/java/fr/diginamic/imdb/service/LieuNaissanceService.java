@@ -5,17 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import fr.diginamic.imdb.entity.LieuNaissance;
-import fr.diginamic.imdb.entity.LieuNaissanceId;
 import fr.diginamic.imdb.repository.LieuNaissanceRepository;
 
 @Service
-public class LieuNaissanceService extends AbstractService<LieuNaissance, LieuNaissanceId > {
+public class LieuNaissanceService extends AbstractService<LieuNaissance, Integer> {
 
     @Autowired
     private LieuNaissanceRepository lieuNaissanceRepository;
 
     @Override
-    protected JpaRepository<LieuNaissance, LieuNaissanceId > getRepository() {
+    protected JpaRepository<LieuNaissance, Integer> getRepository() {
         return lieuNaissanceRepository;
     }
 }

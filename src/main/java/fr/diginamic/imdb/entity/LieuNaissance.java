@@ -1,61 +1,50 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "lieu_naissance")
 public class LieuNaissance {
-    @EmbeddedId
-    private LieuNaissanceId id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @OneToOne
-    @MapsId("lieuId")
-    @JoinColumn(name = "lieu_id")
+    // @MapsId("lieuId")
+    @JoinColumn(name = "lieu_id", nullable = true)
     private Lieu lieu;
 
     @OneToOne
-    @MapsId("acteurId")
+    // @MapsId("acteurId")
     @JoinColumn(name = "acteur_id", nullable = true)
     private Acteur acteur;
 
     @OneToOne
-    @MapsId("realisateurId")
+    // @MapsId("realisateurId")
     @JoinColumn(name = "realisateur_id", nullable = true)
     private Realisateur realisateur;
 
-    private Date date;
-    
+    private LocalDate date;
+
     public LieuNaissance() {
-		super();
+        super();
     }
-		
-		
-    public LieuNaissance(Lieu lieu, Acteur acteur, Realisateur realisateur, Date date) {
-		super();
-		this.lieu = lieu;
-		this.acteur = acteur;
-		this.realisateur = realisateur;
-		this.date = date;
-	}
 
-	
-
-	// Getters and setters
-    public LieuNaissanceId getId() {
+    // Getters and setters
+    public int getId() {
         return id;
     }
 
-    public void setId(LieuNaissanceId id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -83,11 +72,11 @@ public class LieuNaissance {
         this.realisateur = realisateur;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }
