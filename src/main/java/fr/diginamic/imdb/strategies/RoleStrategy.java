@@ -34,7 +34,7 @@ public class RoleStrategy implements ICsvProcessingStrategy {
         Role role = new Role();
 
         if (personnage == null || personnage.isEmpty()) {
-            personnage = "N/A";
+            return;
         }
 
         role.setPersonnage(personnage);
