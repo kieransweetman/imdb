@@ -22,6 +22,6 @@ public class ImdbException {
      * @param e Exception
      */
     public static void log(Exception e) {
-        logger.error("Exception occurred", e);
+        logger.error("Line problem occurred", e);
     }
 }

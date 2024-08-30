@@ -28,7 +28,6 @@ public class ActeurController {
         return ResponseEntity.ok().build();
     }
 
-
     // Méthode GET pour obtenir tous les acteurs
     @GetMapping
     public ResponseEntity<List<Acteur>> obtenirTousLesActeurs() {
@@ -55,7 +54,7 @@ public class ActeurController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Acteur> deleteActeur(@PathVariable Integer id) {
         Acteur acteur = acteurService.getById(id); // Récupérer l'acteur par ID
-    
+
         // Vérifier si l'acteur est lié à des films
         if (acteur.getCastingPrincipals().isEmpty() && acteur.getRoles().isEmpty()) {
             acteurService.deleteById(id); // Supprimer l'acteur s'il n'est lié à aucun casting Principal

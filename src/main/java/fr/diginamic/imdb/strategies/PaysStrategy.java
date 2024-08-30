@@ -9,12 +9,8 @@ import fr.diginamic.imdb.service.PaysService;
 @Component
 public class PaysStrategy implements ICsvProcessingStrategy {
 
-    private final PaysService paysService;
-
     @Autowired
-    public PaysStrategy(PaysService paysService) {
-        this.paysService = paysService;
-    }
+    private PaysService paysService;
 
     @Override
     public void process(String line) {

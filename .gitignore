@@ -37,3 +37,6 @@ build/
 logs/*
 
 #test
+src/main/resources/application-dev.properties
+logs/imdb_exception.log
+logs/*

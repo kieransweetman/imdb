@@ -1,7 +1,11 @@
 package fr.diginamic.imdb.strategies;
 
-import java.sql.Date;
+import java.time.Instant;
+// import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Locale;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Component;
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.Lieu;
 import fr.diginamic.imdb.entity.LieuNaissance;
+import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.service.ActeurService;
 import fr.diginamic.imdb.service.LieuNaissanceService;
 import fr.diginamic.imdb.service.LieuService;
@@ -27,6 +32,9 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
     @Autowired
     private LieuService lieuService;
 
+    @Autowired
+    private PaysService paysService;
+
     // @Autowired
     // public ActeurStrategy(ActeurService acteurService) {
     // this.acteurService = acteurService;
@@ -41,45 +49,53 @@ public class ActeurStrategy implements ICsvProcessingStrategy {
 
         // Actor info
         String identite = fields[1];
-        Float taille = Float.parseFloat(fields[4].trim() != "" ? fields[4].split(" ")[0] : "0");
+        Float taille = Float
+                .parseFloat(fields[4].trim() != "" ? fields[4].split(" ")[0].replaceAll("[^\\d.]", "") : "0");
         String url = fields[5];
 
         Acteur acteur = new Acteur(identite, taille, url);
         Acteur newActeur = acteurService.save(acteur);
 
         // Date and place of birth
-        Lieu lieu = new Lieu();
-        LieuNaissance ln = new LieuNaissance();
 
         String[] locationParts = fields[3].split(",");
         // country is always at the end
         // TODO -> if the lieu is an abbreviation (only two i counted? US and Uk), need
-        String country = locationParts[locationParts.length - 1].trim();
-        if (country.equals("USA")) {
-            country = "United States";
-        } else if (country.equals("UK")) {
-            country = "United Kingdom";
+        String countryString = locationParts[locationParts.length - 1].trim();
+
+        if (countryString.equals("USA")) {
+            countryString = "United States";
+        } else if (countryString.equals("UK")) {
+            countryString = "United Kingdom";
         }
+
+        Pays pays = paysService.findByNom(countryString);
+
+        if (pays == null) {
+            pays = new Pays();
+            pays.setNom(countryString);
+            pays = paysService.save(pays);
+        }
+
         // anything that comes before the country is the name of the location
         String name = String.join(", ", Arrays.copyOf(locationParts, locationParts.length - 1)).trim();
         // to map it to the correct full name.
+        Lieu lieu = lieuService.findByNom(name);
 
-        Lieu existingLieu = lieuService.findByNomAndPaysNom(name, country);
-        System.out.println(existingLieu.toString());
-
-        if (existingLieu != null) {
-            ln.setLieu(existingLieu);
+        if (lieu == null) {
+            lieu = new Lieu();
+            lieu.setNom(name);
+            lieu.setPays(pays);
+            lieu = lieuService.save(lieu);
         }
-
-        // lieu.setNom(fields[3]);
-        // lieu = lieuService.save(lieu);
-        // ln.setLieu(lieu);
-
-        // String dateString = fields[2];
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // LocalDate date = LocalDate.parse(dateString, formatter);
-        // Date dob = Date.valueOf(date);
-
+        LieuNaissance ln = new LieuNaissance();
+        String dateString = fields[2].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy",
+                Locale.ENGLISH);
+        LocalDate date = LocalDate.parse(dateString, formatter);
+        Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date dob = Date.from(instant);
+        System.out.println(dob.toString());
         // ln.setActeur(newActeur);
         // ln.setDate(dob);
 
