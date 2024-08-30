@@ -84,4 +84,10 @@ public class Realisateur {
     public void setFilms(List<Film> films) {
         this.films = films;
     }
+
+    @Override
+    public String toString() {
+        return "Realisateur [id=" + id + ", identite=" + identite + ", dateNaissance=" + dateNaissance + ", url=" + url
+                + "]";
+    }
 }

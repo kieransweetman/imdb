@@ -76,4 +76,9 @@ public class LieuNaissance {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "LieuNaissance [id=" + id + ", lieu=" + lieu + ", date=" + date + "]";
+    }
 }
