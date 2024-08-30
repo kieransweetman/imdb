@@ -16,4 +16,5 @@ public interface LieuRepository extends JpaRepository<Lieu, Integer> {
     List<Lieu> findByPays(Pays pays);
 
     Lieu findByNomAndPaysNom(String nom, String paysNom);
+
 }

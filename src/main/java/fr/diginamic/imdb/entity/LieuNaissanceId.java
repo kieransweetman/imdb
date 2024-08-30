@@ -19,14 +19,7 @@ public class LieuNaissanceId implements Serializable {
     // Default constructor
     public LieuNaissanceId() {
     }
-
-    // Parameterized constructor
-    public LieuNaissanceId(Integer lieuId, Integer acteurId, Integer realisateurId) {
-        this.lieuId = lieuId;
-        this.acteurId = acteurId;
-        this.realisateurId = realisateurId;
-    }
-
+    
     // Getters and setters
     public Integer getLieuId() {
         return lieuId;

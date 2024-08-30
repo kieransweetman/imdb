@@ -6,6 +6,7 @@ target/
 
 ### DB ###
 /src/main/resources/application.properties
+/src/main/resources/application-dev.properties
 
 ### STS ###
 .apt_generated
@@ -38,5 +39,4 @@ logs/*
 
 #test
 src/main/resources/application-dev.properties
-logs/imdb_exception.log
-logs/*
+
