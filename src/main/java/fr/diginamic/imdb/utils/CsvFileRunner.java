@@ -33,11 +33,10 @@ public class CsvFileRunner implements CommandLineRunner {
     @EventListener(ApplicationReadyEvent.class)
     public void runAfterStartup() throws Exception {
 
-        // if (isDatabasePopulated()) {
-        // System.out.println("Database is already populated. Skipping CSV file
-        // parsing.");
-        // return;
-        // }
+        if (isDatabasePopulated()) {
+            System.out.println("Database is already populated. Skipping CSV file parsing.");
+            return;
+        }
 
         System.out.println("Starting csv parsing");
 
