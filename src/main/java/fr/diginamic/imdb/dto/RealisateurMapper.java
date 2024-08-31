@@ -21,7 +21,9 @@ public class RealisateurMapper {
         RealisateurDto rDto = new RealisateurDto();
         rDto.setIdentite(realisateur.getIdentite());
         rDto.setDateNaissance(
-                realisateur.getDateNaissance() != null ? realisateur.getDateNaissance().toString() : null);
+                realisateur.getLieuNaissance() != null && realisateur.getLieuNaissance().getDate() != null
+                        ? realisateur.getLieuNaissance().getDate().toString()
+                        : null);
         rDto.setLieuNaissance(lieuNaissance);
         rDto.setPays(pays);
         rDto.setUrl(realisateur.getUrl());

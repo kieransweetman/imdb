@@ -3,6 +3,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+./mvnw 
+./mvnw.cmd
+./nbactions.xml
+
 
 ### DB ###
 /src/main/resources/application.properties
@@ -39,4 +43,6 @@ logs/*
 
 #test
 src/main/resources/application-dev.properties
+src/main/resources/application.properties
+
 

@@ -1,8 +1,7 @@
 package fr.diginamic.imdb.service;
 
 import fr.diginamic.imdb.dto.RealisateurDto;
-import fr.diginamic.imdb.entity.Lieu;
-import fr.diginamic.imdb.entity.LieuNaissance;
+
 import fr.diginamic.imdb.entity.Realisateur;
 import fr.diginamic.imdb.repository.RealisateurRepository;
 

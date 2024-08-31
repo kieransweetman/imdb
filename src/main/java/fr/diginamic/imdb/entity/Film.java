@@ -50,6 +50,9 @@ public class Film {
     @JoinColumn(name = "pays_id", nullable = false)
     private Pays pays;
 
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Role> roles;
+
     // Relation ManyToMany avec Film
     @ManyToMany
     @JoinTable(name = "Film_Realisateur", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "realisateur_id"))
@@ -71,14 +74,6 @@ public class Film {
 
     public void setImdb(Integer imdb) {
         this.imdb = imdb;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
     }
 
     public Film() {
@@ -117,6 +112,22 @@ public class Film {
 
     public float getRating() {
         return rating;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public void setRating(float rating) {

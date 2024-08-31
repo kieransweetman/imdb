@@ -1,6 +1,6 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,9 +25,16 @@ public class Role {
     @JoinColumn(name = "id_acteur")
     private Acteur acteur;
 
+    @Column(name = "personnage")
     private String personnage;
 
     public Role() {
+    }
+
+    public Role(Film film, Acteur acteur, String personnage) {
+        this.film = film;
+        this.acteur = acteur;
+        this.personnage = personnage;
     }
 
     public Integer getId() {
@@ -61,5 +68,4 @@ public class Role {
     public void setPersonnage(String personnage) {
         this.personnage = personnage;
     }
-
 }
