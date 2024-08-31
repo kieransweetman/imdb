@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.diginamic.imdb.dto.ActeurDto;
+import fr.diginamic.imdb.dto.FilmDto;
+import fr.diginamic.imdb.dto.GenreDto;
 import fr.diginamic.imdb.dto.RoleDto;
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.CastingPrincipal;
@@ -173,10 +175,17 @@ public class FilmController {
 
 	// Obtenir les détails d'un film par ID
 	@GetMapping("/{id}")
-	public ResponseEntity<Film> getFilmById(@PathVariable Integer id) {
+	public ResponseEntity<FilmDto> getFilmById(@PathVariable Integer id) {
 		Film film = filmService.findById(id);
 		if (film != null) {
-			return new ResponseEntity<>(film, HttpStatus.OK);
+			List<GenreDto> genreDtos = film.getGenres().stream()
+					.map(genre -> new GenreDto(genre.getNom()))
+					.collect(Collectors.toList());
+			FilmDto f = new FilmDto(film.getNom(), film.getResume(), film.getRating(), film.getLangue(),
+					film.getAnnee(),
+					film.getUrl(), genreDtos);
+
+			return new ResponseEntity<>(f, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -196,7 +205,7 @@ public class FilmController {
 	}
 
 	// Mettre à jour un rôle dans un film
-	@PutMapping("/{id}/roles/{acteurId}")
+	// @PutMapping("/{id}/roles/{acteurId}")
 	// public ResponseEntity<Role> updateRole(@PathVariable Integer id,
 	// @PathVariable Integer acteurId,
 	// @RequestParam String newPersonnage) {

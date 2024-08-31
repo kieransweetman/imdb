@@ -57,6 +57,11 @@ public class Genre {
         return films;
     }
 
+    @Override
+    public String toString() {
+        return "Genre [id=" + id + ", nom=" + nom + "]";
+    }
+
     public void setFilms(List<Film> films) {
         this.films = films;
     }
