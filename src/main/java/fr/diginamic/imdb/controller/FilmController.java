@@ -2,6 +2,7 @@ package fr.diginamic.imdb.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,27 +14,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.diginamic.imdb.dto.ActeurDto;
+import fr.diginamic.imdb.dto.RoleDto;
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.CastingPrincipal;
 import fr.diginamic.imdb.entity.CastingPrincipalId;
 import fr.diginamic.imdb.entity.Film;
+import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.entity.Realisateur;
-// import fr.diginamic.imdb.service.ActeurService;
 import fr.diginamic.imdb.service.CastingPrincipalService;
 import fr.diginamic.imdb.service.FilmService;
+import fr.diginamic.imdb.service.PaysService;
 import fr.diginamic.imdb.service.RealisateurService;
+import fr.diginamic.imdb.service.RoleService;
 
 @RestController
-@RequestMapping("/film")
+@RequestMapping("/films")
 public class FilmController {
 
 	@Autowired
 	private FilmService filmService;
-
-	// @Autowired
-	// private ActeurService acteurService;
 
 	@Autowired
 	private RealisateurService realisateurService;
@@ -41,12 +44,37 @@ public class FilmController {
 	@Autowired
 	private CastingPrincipalService castingPrincipalService;
 
+	@Autowired
+	private RoleService roleService;
+
+	@Autowired
+	private PaysService paysService;
+
 	@PostMapping
 	public ResponseEntity<Film> createFilm(@RequestBody Film film) {
 
+		Pays pays = paysService.getByNom(film.getPays().getNom());
+		if (pays == null) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+
+		film.setPays(pays);
+
 		Film newFilm = filmService.save(film);
 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(newFilm);
+		return ResponseEntity.status(HttpStatus.CREATED).body(newFilm);
+	}
+
+	@GetMapping("/films/{nom}")
+
+	public ResponseEntity<Film> getFilmByNom(@PathVariable String nom) {
+		Film film = filmService.getByNom(nom);
+		if (film != null) {
+			return ResponseEntity.ok(film);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@GetMapping
@@ -143,4 +171,75 @@ public class FilmController {
 
 	}
 
+	// Obtenir les détails d'un film par ID
+	@GetMapping("/{id}")
+	public ResponseEntity<Film> getFilmById(@PathVariable Integer id) {
+		Film film = filmService.findById(id);
+		if (film != null) {
+			return new ResponseEntity<>(film, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// Ajouter un rôle à un film
+	// TODO fix role type -> roleId should be removed
+	@PostMapping("/{id}/roles")
+	public ResponseEntity<Role> addRoleToFilm(@PathVariable Integer id,
+			@RequestBody ActeurDto acteurDto) {
+		if (id == null || acteurDto.getId() == null || acteurDto.getPersonnage() == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		Role role = roleService.addRoleToFilm(id, acteurDto.getId(), acteurDto.getPersonnage());
+		return new ResponseEntity<>(role, HttpStatus.CREATED);
+	}
+
+	// Mettre à jour un rôle dans un film
+	@PutMapping("/{id}/roles/{acteurId}")
+	public ResponseEntity<Role> updateRole(@PathVariable Integer id,
+			@PathVariable Integer acteurId,
+			@RequestParam String newPersonnage) {
+		RoleId roleId = new RoleId(id, acteurId);
+		Role updatedRole = roleService.updateRole(roleId, newPersonnage);
+		return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+	}
+
+	// Supprimer un rôle d'un film
+	@DeleteMapping("/{id}/roles/{acteurId}")
+	public ResponseEntity<Void> deleteRole(@PathVariable Integer id,
+			@PathVariable Integer acteurId) {
+		RoleId roleId = new RoleId(id, acteurId);
+		roleService.deleteRole(roleId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	// Obtenir tous les rôles associés à un film
+	@GetMapping("/{id}/roles")
+	public ResponseEntity<List<RoleDto>> getRolesByFilm(@PathVariable Integer id) {
+		// Récupérer les rôles associés au film à partir du service
+		List<Role> roles = roleService.findRolesByFilm(id);
+
+		// Convertir la liste des rôles en liste de RoleDto
+		List<RoleDto> roleDtos = roles.stream()
+				.map(this::convertToDto)
+				.collect(Collectors.toList());
+
+		// Retourner la liste des RoleDto avec un statut HTTP 200 (OK)
+		return new ResponseEntity<>(roleDtos, HttpStatus.OK);
+	}
+
+	private RoleDto convertToDto(Role role) {
+		return new RoleDto(
+				role.getFilm().getNom(),
+				role.getActeur().getIdentite(),
+				role.getCharacterName(),
+				role.getPersonnage());
+	}
+
+	@PostMapping("path")
+	public String postMethodName(@RequestBody String entity) {
+
+		return entity;
+	}
 }

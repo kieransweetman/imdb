@@ -19,7 +19,11 @@ public class Tourner {
     @JoinColumn(name = "lieu_id")
     private Lieu lieu;
 
-    // Getters and Setters
+    @Override
+    public String toString() {
+        return "Tourner [id=" + id + ", adresse=" + adresse + ", film=" + film + ", lieu=" + lieu + "]";
+    }
+
     public Integer getId() {
         return id;
     }

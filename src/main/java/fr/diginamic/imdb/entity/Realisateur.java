@@ -1,8 +1,17 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "realisateur")
@@ -15,8 +24,6 @@ public class Realisateur {
     private String imdbId;
 
     private String identite;
-
-    private LocalDate dateNaissance;
 
     private String url;
 
@@ -55,14 +62,6 @@ public class Realisateur {
         this.identite = identite;
     }
 
-    public LocalDate getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(LocalDate dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -97,7 +96,6 @@ public class Realisateur {
 
     @Override
     public String toString() {
-        return "Realisateur [id=" + id + ", identite=" + identite + ", dateNaissance=" + dateNaissance + ", url=" + url
-                + "]";
+        return "Realisateur [id=" + id + ", identite=" + identite + ", url=" + url + "]";
     }
 }

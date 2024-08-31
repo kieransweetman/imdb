@@ -1,6 +1,5 @@
 package fr.diginamic.imdb.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -26,7 +25,7 @@ public class Pays {
 	private String nom;
 
 	@OneToMany(mappedBy = "pays", fetch = FetchType.EAGER)
-	private List<Lieu> lieu = new ArrayList<Lieu>();
+	private List<Lieu> lieu;
 
 	public Pays() {
 		super();
