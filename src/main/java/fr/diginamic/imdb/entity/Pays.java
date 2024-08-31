@@ -26,10 +26,9 @@ public class Pays {
 
 	private String abreviation;
 
-	@OneToMany(mappedBy= "pays")
-	private List<Lieu> lieu = new ArrayList<Lieu>();
-	
-	
+	@OneToMany(mappedBy = "pays")
+	private List<Lieu> lieu;
+
 	public Pays() {
 		super();
 	}
@@ -42,8 +41,6 @@ public class Pays {
 		this.abreviation = abreviation;
 		this.lieu = lieu;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -76,8 +73,6 @@ public class Pays {
 	public void setAbreviation(String abreviation) {
 		this.abreviation = abreviation;
 	}
-	
-	
 
 	public List<Lieu> getLieu() {
 		return lieu;
@@ -89,8 +84,7 @@ public class Pays {
 
 	@Override
 	public String toString() {
-		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + ", lieu=" + lieu
-				+ "]";
+		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + "]";
 	}
 
 }

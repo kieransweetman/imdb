@@ -1,6 +1,5 @@
 package fr.diginamic.imdb.service;
 
-
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.Film;
 import fr.diginamic.imdb.entity.Role;
@@ -12,15 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
 public class RoleService extends AbstractService<Role, RoleId> {
-    
 
     @Autowired
-    private  FilmRepository filmRepository;
+    private FilmRepository filmRepository;
     @Autowired
     private ActeurRepository acteurRepository;
     @Autowired
@@ -55,6 +52,7 @@ public class RoleService extends AbstractService<Role, RoleId> {
         // Sauvegardez le rôle dans la base de données
         return roleRepository.save(role);
     }
+
     private Film findFilmById(Integer id) {
         // Implémenter la méthode pour récupérer un Film par son ID
         return new Film(); // Remplacer par la logique réelle
@@ -107,12 +105,11 @@ public class RoleService extends AbstractService<Role, RoleId> {
     public List<Role> findRolesByFilm(Integer filmId) {
         // Trouver le film par son ID
         Film film = filmService.findById(filmId);
-        
+
         if (film == null) {
             System.out.println("Film introuvable");
         }
-        
-        
+
         return roleRepository.findByFilm(film);
     }
 }

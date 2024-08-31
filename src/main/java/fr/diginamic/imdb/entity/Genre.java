@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.Column;
@@ -11,13 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 
 /**
  *
  * @author mattb
  */
-import java.util.HashSet;
-import java.util.List;
 
 @Entity
 @Table(name = "Genre")

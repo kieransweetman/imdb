@@ -3,7 +3,6 @@ package fr.diginamic.imdb.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -31,7 +30,7 @@ public class Role {
 
     public Role() {
     }
-    
+
     public Role(RoleId id, Film film, Acteur acteur, String characterName, String personnage) {
         this.id = id;
         this.film = film;
@@ -59,7 +58,6 @@ public class Role {
     public Acteur getActeur() {
         return acteur;
     }
-    
 
     public void setActeur(Acteur acteur) {
         this.acteur = acteur;
@@ -79,5 +77,5 @@ public class Role {
 
     public void setCharacterName(String characterName) {
         this.characterName = characterName;
-    }  
+    }
 }

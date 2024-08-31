@@ -1,8 +1,17 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "realisateur")
@@ -13,8 +22,6 @@ public class Realisateur {
     private Integer id;
 
     private String identite;
-
-    private LocalDate dateNaissance;
 
     private String url;
 
@@ -30,10 +37,9 @@ public class Realisateur {
         super();
     }
 
-    public Realisateur(String identite, LocalDate dateNaissance, String url, Lieu lieuNaissance) {
+    public Realisateur(String identite, String url) {
         super();
         this.identite = identite;
-        this.dateNaissance = dateNaissance;
         this.url = url;
     }
 
@@ -52,14 +58,6 @@ public class Realisateur {
 
     public void setIdentite(String identite) {
         this.identite = identite;
-    }
-
-    public LocalDate getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(LocalDate dateNaissance) {
-        this.dateNaissance = dateNaissance;
     }
 
     public String getUrl() {
@@ -84,5 +82,10 @@ public class Realisateur {
 
     public void setFilms(List<Film> films) {
         this.films = films;
+    }
+
+    @Override
+    public String toString() {
+        return "Realisateur [id=" + id + ", identite=" + identite + ", url=" + url + "]";
     }
 }
