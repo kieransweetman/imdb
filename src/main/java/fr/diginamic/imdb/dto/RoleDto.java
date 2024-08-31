@@ -9,10 +9,9 @@ public class RoleDto {
     public RoleDto() {
     }
 
-    public RoleDto(String filmTitle, String acteurName, String personnage, String personnage) {
+    public RoleDto(String filmTitle, String acteurName, String personnage) {
         this.filmTitle = filmTitle;
         this.acteurName = acteurName;
-        this.personnage = personnage;
         this.personnage = personnage;
     }
 
@@ -41,11 +40,4 @@ public class RoleDto {
         this.personnage = personnage;
     }
 
-    public String getPersonnage() {
-        return personnage;
-    }
-
-    public void setPersonnage(String personnage) {
-        this.personnage = personnage;
-    }
 }

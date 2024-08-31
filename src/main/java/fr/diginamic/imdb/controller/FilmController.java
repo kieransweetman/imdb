@@ -25,6 +25,7 @@ import fr.diginamic.imdb.entity.CastingPrincipalId;
 import fr.diginamic.imdb.entity.Film;
 import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.entity.Realisateur;
+import fr.diginamic.imdb.entity.Role;
 import fr.diginamic.imdb.service.CastingPrincipalService;
 import fr.diginamic.imdb.service.FilmService;
 import fr.diginamic.imdb.service.PaysService;
@@ -200,8 +201,10 @@ public class FilmController {
 	public ResponseEntity<Role> updateRole(@PathVariable Integer id,
 			@PathVariable Integer acteurId,
 			@RequestParam String newPersonnage) {
-		RoleId roleId = new RoleId(id, acteurId);
-		Role updatedRole = roleService.updateRole(roleId, newPersonnage);
+
+		// TODO filter and find film with actuer id
+		Role r = roleService.findRolesByFilm(id).stream().filter(null);
+		Role updatedRole = roleService.updateRole(r.getId(), newPersonnage);
 		return new ResponseEntity<>(updatedRole, HttpStatus.OK);
 	}
 
@@ -209,8 +212,9 @@ public class FilmController {
 	@DeleteMapping("/{id}/roles/{acteurId}")
 	public ResponseEntity<Void> deleteRole(@PathVariable Integer id,
 			@PathVariable Integer acteurId) {
-		RoleId roleId = new RoleId(id, acteurId);
-		roleService.deleteRole(roleId);
+		// TODO filter and find film with actuer id
+		Role r = roleService.findRolesByFilm(id).stream().filter(null);
+		roleService.deleteRole(r.getId());
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 

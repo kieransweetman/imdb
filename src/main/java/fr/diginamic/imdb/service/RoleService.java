@@ -3,7 +3,6 @@ package fr.diginamic.imdb.service;
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.Film;
 import fr.diginamic.imdb.entity.Role;
-import fr.diginamic.imdb.entity.RoleId;
 import fr.diginamic.imdb.repository.ActeurRepository;
 import fr.diginamic.imdb.repository.FilmRepository;
 import fr.diginamic.imdb.repository.RoleRepository;
@@ -70,7 +69,7 @@ public class RoleService extends AbstractService<Role, Integer> {
      * @param newPersonnage Nouveau nom du personnage
      * @return Role modifié
      */
-    public Role updateRole(RoleId roleId, String newPersonnage) {
+    public Role updateRole(Integer roleId, String newPersonnage) {
         // Trouver le rôle existant
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RuntimeException("Role not found with id: " + roleId));
@@ -87,7 +86,7 @@ public class RoleService extends AbstractService<Role, Integer> {
      * 
      * @param roleId ID du rôle
      */
-    public void deleteRole(RoleId roleId) {
+    public void deleteRole(Integer roleId) {
         // Trouver le rôle existant
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RuntimeException("Role not found with id: " + roleId));
