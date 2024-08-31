@@ -21,7 +21,6 @@ import fr.diginamic.imdb.dto.ActeurDto;
 import fr.diginamic.imdb.dto.RoleDto;
 import fr.diginamic.imdb.entity.Acteur;
 import fr.diginamic.imdb.entity.CastingPrincipal;
-import fr.diginamic.imdb.entity.CastingPrincipalId;
 import fr.diginamic.imdb.entity.Film;
 import fr.diginamic.imdb.entity.Pays;
 import fr.diginamic.imdb.entity.Realisateur;
@@ -198,25 +197,25 @@ public class FilmController {
 
 	// Mettre à jour un rôle dans un film
 	@PutMapping("/{id}/roles/{acteurId}")
-	public ResponseEntity<Role> updateRole(@PathVariable Integer id,
-			@PathVariable Integer acteurId,
-			@RequestParam String newPersonnage) {
+	// public ResponseEntity<Role> updateRole(@PathVariable Integer id,
+	// @PathVariable Integer acteurId,
+	// @RequestParam String newPersonnage) {
 
-		// TODO filter and find film with actuer id
-		Role r = roleService.findRolesByFilm(id).stream().filter(null);
-		Role updatedRole = roleService.updateRole(r.getId(), newPersonnage);
-		return new ResponseEntity<>(updatedRole, HttpStatus.OK);
-	}
+	// // TODO filter and find film with actuer id
+	// Role r = roleService.findRolesByFilm(id).stream().filter(null);
+	// Role updatedRole = roleService.updateRole(r.getId(), newPersonnage);
+	// return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+	// }
 
 	// Supprimer un rôle d'un film
-	@DeleteMapping("/{id}/roles/{acteurId}")
-	public ResponseEntity<Void> deleteRole(@PathVariable Integer id,
-			@PathVariable Integer acteurId) {
-		// TODO filter and find film with actuer id
-		Role r = roleService.findRolesByFilm(id).stream().filter(null);
-		roleService.deleteRole(r.getId());
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+	// @DeleteMapping("/{id}/roles/{acteurId}")
+	// public ResponseEntity<Void> deleteRole(@PathVariable Integer id,
+	// @PathVariable Integer acteurId) {
+	// // TODO filter and find film with actuer id
+	// Role r = roleService.findRolesByFilm(id).stream().filter(null);
+	// roleService.deleteRole(r.getId());
+	// return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	// }
 
 	// Obtenir tous les rôles associés à un film
 	@GetMapping("/{id}/roles")
@@ -237,7 +236,6 @@ public class FilmController {
 		return new RoleDto(
 				role.getFilm().getNom(),
 				role.getActeur().getIdentite(),
-				role.getPersonnage(),
 				role.getPersonnage());
 	}
 
