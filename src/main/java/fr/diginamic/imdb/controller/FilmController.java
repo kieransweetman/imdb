@@ -233,7 +233,7 @@ public class FilmController {
 		return new RoleDto(
 				role.getFilm().getNom(),
 				role.getActeur().getIdentite(),
-				role.getCharacterName(),
+				role.getPersonnage(),
 				role.getPersonnage());
 	}
 

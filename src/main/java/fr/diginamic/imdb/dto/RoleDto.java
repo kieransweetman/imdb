@@ -3,16 +3,16 @@ package fr.diginamic.imdb.dto;
 public class RoleDto {
     private String filmTitle;
     private String acteurName;
-    private String characterName;
     private String personnage;
 
     // Constructeurs
-    public RoleDto() {}
+    public RoleDto() {
+    }
 
-    public RoleDto(String filmTitle, String acteurName, String characterName, String personnage) {
+    public RoleDto(String filmTitle, String acteurName, String personnage, String personnage) {
         this.filmTitle = filmTitle;
         this.acteurName = acteurName;
-        this.characterName = characterName;
+        this.personnage = personnage;
         this.personnage = personnage;
     }
 
@@ -33,12 +33,12 @@ public class RoleDto {
         this.acteurName = acteurName;
     }
 
-    public String getCharacterName() {
-        return characterName;
+    public String getPersonnage() {
+        return personnage;
     }
 
-    public void setCharacterName(String characterName) {
-        this.characterName = characterName;
+    public void setPersonnage(String personnage) {
+        this.personnage = personnage;
     }
 
     public String getPersonnage() {
