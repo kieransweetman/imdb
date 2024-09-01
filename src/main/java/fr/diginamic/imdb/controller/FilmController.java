@@ -197,34 +197,45 @@ public class FilmController {
 	public ResponseEntity<Role> addRoleToFilm(@PathVariable Integer id,
 			@RequestBody ActeurDto acteurDto) {
 		if (id == null || acteurDto.getId() == null || acteurDto.getPersonnage() == null) {
+			System.out.println(acteurDto.toString());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		Role role = roleService.addRoleToFilm(id, acteurDto.getId(), acteurDto.getPersonnage());
+
+		System.out.println("Role added: " + role.toString());
 		return new ResponseEntity<>(role, HttpStatus.CREATED);
 	}
 
 	// Mettre à jour un rôle dans un film
-	// @PutMapping("/{id}/roles/{acteurId}")
-	// public ResponseEntity<Role> updateRole(@PathVariable Integer id,
-	// @PathVariable Integer acteurId,
-	// @RequestParam String newPersonnage) {
+	@PutMapping("/{id}/roles/{acteurId}")
+	public ResponseEntity<Role> updateRole(@PathVariable Integer id,
+			@PathVariable Integer acteurId,
+			@RequestParam String newPersonnage) {
 
-	// // TODO filter and find film with actuer id
-	// Role r = roleService.findRolesByFilm(id).stream().filter(null);
-	// Role updatedRole = roleService.updateRole(r.getId(), newPersonnage);
-	// return new ResponseEntity<>(updatedRole, HttpStatus.OK);
-	// }
+		// TODO filter and find film with actuer id
+		Role r = roleService.findRolesByFilm(id).stream().filter(role -> role.getActeur().getId().equals(acteurId))
+				.findFirst()
+				.orElse(null);
+
+		Role updatedRole = roleService.updateRole(r.getId(), newPersonnage);
+		return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+	}
 
 	// Supprimer un rôle d'un film
-	// @DeleteMapping("/{id}/roles/{acteurId}")
-	// public ResponseEntity<Void> deleteRole(@PathVariable Integer id,
-	// @PathVariable Integer acteurId) {
-	// // TODO filter and find film with actuer id
-	// Role r = roleService.findRolesByFilm(id).stream().filter(null);
-	// roleService.deleteRole(r.getId());
-	// return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	// }
+	@DeleteMapping("/{id}/roles/{acteurId}")
+	public ResponseEntity<Void> deleteRole(@PathVariable Integer id,
+			@PathVariable Integer acteurId) {
+		// TODO filter and find film with actuer id
+		Film film = filmService.findById(id);
+		Role r = roleService.findRolesByFilm(id).stream().filter(role -> role.getActeur().getId().equals(acteurId))
+				.findFirst()
+				.orElse(null);
+
+		film.getRoles().remove(r);
+		filmService.save(film);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 	// Obtenir tous les rôles associés à un film
 	@GetMapping("/{id}/roles")

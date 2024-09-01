@@ -2,7 +2,6 @@ package fr.diginamic.imdb.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 public class ActeurDto {
 
     @JsonProperty("idActeur")
@@ -34,6 +33,9 @@ public class ActeurDto {
     public void setPersonnage(String personnage) {
         this.personnage = personnage;
     }
-}
 
-    
+    @Override
+    public String toString() {
+        return "ActeurDto [id=" + id + ", personnage=" + personnage + "]";
+    }
+}

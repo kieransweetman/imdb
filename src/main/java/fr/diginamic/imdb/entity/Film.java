@@ -50,7 +50,7 @@ public class Film {
     @JoinColumn(name = "pays_id", nullable = false)
     private Pays pays;
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "film")
     private List<Role> roles;
 
     // Relation ManyToMany avec Film
