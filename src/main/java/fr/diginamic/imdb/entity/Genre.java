@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fr.diginamic.imdb.entity;
 
 import jakarta.persistence.Column;
@@ -11,13 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 
 /**
  *
  * @author mattb
  */
-import java.util.HashSet;
-import java.util.List;
 
 @Entity
 @Table(name = "Genre")
@@ -30,9 +25,12 @@ public class Genre {
     @Column(unique = true)
     private String nom;
 
-    // Relation avec Film via Avoir
     @ManyToMany(mappedBy = "genres")
     private List<Film> films;
+
+    public Genre() {
+        super();
+    }
 
     public Genre(Integer id, String nom) {
         this.id = id;
@@ -57,6 +55,11 @@ public class Genre {
 
     public List<Film> getFilms() {
         return films;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre [id=" + id + ", nom=" + nom + "]";
     }
 
     public void setFilms(List<Film> films) {

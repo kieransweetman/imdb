@@ -1,10 +1,10 @@
 package fr.diginamic.imdb.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,15 +21,12 @@ public class Pays {
 
 	private String url;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String nom;
 
-	private String abreviation;
+	@OneToMany(mappedBy = "pays", fetch = FetchType.EAGER)
+	private List<Lieu> lieu;
 
-	@OneToMany(mappedBy= "pays")
-	private List<Lieu> lieu = new ArrayList<Lieu>();
-	
-	
 	public Pays() {
 		super();
 	}
@@ -39,11 +36,8 @@ public class Pays {
 		this.id = id;
 		this.url = url;
 		this.nom = nom;
-		this.abreviation = abreviation;
 		this.lieu = lieu;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -69,16 +63,6 @@ public class Pays {
 		this.nom = nom;
 	}
 
-	public String getAbreviation() {
-		return abreviation;
-	}
-
-	public void setAbreviation(String abreviation) {
-		this.abreviation = abreviation;
-	}
-	
-	
-
 	public List<Lieu> getLieu() {
 		return lieu;
 	}
@@ -89,8 +73,8 @@ public class Pays {
 
 	@Override
 	public String toString() {
-		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom + ", abreviation=" + abreviation + ", lieu=" + lieu
-				+ "]";
+		return "Pays [id=" + id + ", url=" + url + ", nom=" + nom +
+				"]";
 	}
 
 }

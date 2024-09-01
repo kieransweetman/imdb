@@ -1,35 +1,49 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
 @Entity
+@Table(name = "realisateur")
 public class Realisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String identite;
+    private String imdbId;
 
-    private LocalDate dateNaissance;
+    private String identite;
 
     private String url;
 
-    // Relation avec Lieu (plusieurs réalisateurs peuvent être nés dans un seul lieu)
-    @ManyToOne
-    @JoinColumn(name = "lieu_naissance_id")
-    private Lieu lieuNaissance;
+    @OneToOne(mappedBy = "realisateur", cascade = CascadeType.ALL, orphanRemoval = true)
+    private LieuNaissance lieuNaissance;
 
     // Relation ManyToMany avec Film
     @ManyToMany
-    @JoinTable(
-            name = "Film_Realisateur",
-            joinColumns = @JoinColumn(name = "realisateur_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id")
-    )
+    @JoinTable(name = "Film_Realisateur", joinColumns = @JoinColumn(name = "realisateur_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Film> films;
+
+    public Realisateur() {
+        super();
+    }
+
+    public Realisateur(String identite, String url) {
+        super();
+        this.identite = identite;
+        this.url = url;
+    }
 
     // Getters et setters
     public Integer getId() {
@@ -48,14 +62,6 @@ public class Realisateur {
         this.identite = identite;
     }
 
-    public LocalDate getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(LocalDate dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -64,11 +70,19 @@ public class Realisateur {
         this.url = url;
     }
 
-    public Lieu getLieuNaissance() {
+    public String getImddId() {
+        return imdbId;
+    }
+
+    public void setImddId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public LieuNaissance getLieuNaissance() {
         return lieuNaissance;
     }
 
-    public void setLieuNaissance(Lieu lieuNaissance) {
+    public void setLieuNaissance(LieuNaissance lieuNaissance) {
         this.lieuNaissance = lieuNaissance;
     }
 
@@ -78,5 +92,10 @@ public class Realisateur {
 
     public void setFilms(List<Film> films) {
         this.films = films;
+    }
+
+    @Override
+    public String toString() {
+        return "Realisateur [id=" + id + ", identite=" + identite + ", url=" + url + "]";
     }
 }

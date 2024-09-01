@@ -1,42 +1,48 @@
 package fr.diginamic.imdb.entity;
 
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "lieu_naissance")
 public class LieuNaissance {
-    @EmbeddedId
-    private LieuNaissanceId id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
-    @MapsId("lieuId")
-    @JoinColumn(name = "lieu_id")
+    @JoinColumn(name = "lieu_id", nullable = true)
     private Lieu lieu;
 
-    @ManyToOne
-    @MapsId("acteurId")
-    @JoinColumn(name = "acteur_id", nullable = true)
+    @OneToOne
+    @JoinColumn(name = "acteur_id", nullable = true, unique = true)
     private Acteur acteur;
 
-    @ManyToOne
-    @MapsId("realisateurId")
-    @JoinColumn(name = "realisateur_id", nullable = true)
+    @OneToOne
+    @JoinColumn(name = "realisateur_id", nullable = true, unique = true)
     private Realisateur realisateur;
 
-    private Date date;
+    private LocalDate date;
+
+    public LieuNaissance() {
+        super();
+    }
 
     // Getters and setters
-    public LieuNaissanceId getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(LieuNaissanceId id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,11 +70,16 @@ public class LieuNaissance {
         this.realisateur = realisateur;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "LieuNaissance [id=" + id + ", lieu=" + lieu + ", date=" + date + "]";
     }
 }

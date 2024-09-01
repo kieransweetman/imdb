@@ -1,6 +1,9 @@
 package fr.diginamic.imdb.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,9 +15,6 @@ import jakarta.persistence.Table;
  * @author mattb
  */
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "acteur")
 public class Acteur {
@@ -22,21 +22,24 @@ public class Acteur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String imdbId;
+
     private String identite;
 
     private Float taille;
 
     private String url;
 
-    // Relations avec d'autres entités
-    @OneToMany(mappedBy = "acteur")
-    private Set<CastingPrincipal> castingPrincipals = new HashSet<>();
+    @OneToMany(mappedBy = "acteur", fetch = FetchType.EAGER)
+    private List<CastingPrincipal> castingPrincipals;
 
-    @OneToMany(mappedBy = "acteur")
-    private Set<Role> roles = new HashSet<>();
+    @OneToMany(mappedBy = "acteur", fetch = FetchType.EAGER)
+    private List<Role> roles;
 
-    public Acteur(Integer id, String identite, Float taille, String url) {
-        this.id = id;
+    public Acteur() {
+    }
+
+    public Acteur(String identite, Float taille, String url) {
         this.identite = identite;
         this.taille = taille;
         this.url = url;
@@ -74,26 +77,33 @@ public class Acteur {
         this.url = url;
     }
 
-    public Set<CastingPrincipal> getCastingPrincipals() {
+    public List<CastingPrincipal> getCastingPrincipals() {
         return castingPrincipals;
     }
 
-    public void setCastingPrincipals(Set<CastingPrincipal> castingPrincipals) {
+    public void setCastingPrincipals(List<CastingPrincipal> castingPrincipals) {
         this.castingPrincipals = castingPrincipals;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     @Override
     public String toString() {
-        return "Acteur [id=" + id + ", identite=" + identite + ", taille=" + taille + ", url=" + url
-                + ", castingPrincipals=" + castingPrincipals + "]";
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+        return "Acteur [id=" + id + ", identite=" + identite + ", taille=" + taille + ", url=" + url + "]";
     }
 
 }

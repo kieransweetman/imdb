@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import fr.diginamic.imdb.entity.Genre;
 
 @Repository
-public interface GenreRepository extends JpaRepository<Genre, Integer>{
-
+public interface GenreRepository extends JpaRepository<Genre, Integer> {
+    Genre findByNom(String nom);
 }

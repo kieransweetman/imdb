@@ -3,9 +3,14 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+./mvnw 
+./mvnw.cmd
+./nbactions.xml
+
 
 ### DB ###
 /src/main/resources/application.properties
+/src/main/resources/application-dev.properties
 
 ### STS ###
 .apt_generated
@@ -34,5 +39,7 @@ build/
 
 ### VS Code ###
 .vscode/
-
 logs/*
+
+
+

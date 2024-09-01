@@ -1,9 +1,11 @@
 package fr.diginamic.imdb.entity;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,10 @@ public class Film {
     private int id;
 
     private String nom;
+
+    private String imdbId;
+
+    @Column(columnDefinition = "TEXT")
     private String resume;
     private float rating;
 
@@ -31,6 +37,7 @@ public class Film {
     private Langue langue;
     private Year annee;
     private String url;
+    private Integer imdb;
 
     @ManyToMany
     @JoinTable(name = "Film_Genre", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
@@ -43,13 +50,30 @@ public class Film {
     @JoinColumn(name = "pays_id", nullable = false)
     private Pays pays;
 
-    public Film(String nom, String resume, float rating, Langue langue, Year annee, String url) {
+    @OneToMany(mappedBy = "film")
+    private List<Role> roles;
+
+    // Relation ManyToMany avec Film
+    @ManyToMany
+    @JoinTable(name = "Film_Realisateur", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "realisateur_id"))
+    private List<Realisateur> realisateur;
+
+    public Film(String nom, String resume, float rating, Langue langue, Year annee, String url, Integer imdb) {
         this.nom = nom;
         this.resume = resume;
         this.rating = rating;
         this.langue = langue;
         this.annee = annee;
         this.url = url;
+        this.imdb = imdb;
+    }
+
+    public Integer getImdb() {
+        return imdb;
+    }
+
+    public void setImdb(Integer imdb) {
+        this.imdb = imdb;
     }
 
     public Film() {
@@ -90,6 +114,22 @@ public class Film {
         return rating;
     }
 
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     public void setRating(float rating) {
         this.rating = rating;
     }
@@ -126,6 +166,23 @@ public class Film {
         this.genres = genres;
     }
 
+    public void addGenre(Genre genre) {
+        if (this.genres == null) {
+            this.genres = new ArrayList<>();
+        }
+        if (!this.genres.contains(genre)) {
+            this.genres.add(genre);
+        }
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
     public Pays getPays() {
         return pays;
     }
@@ -140,6 +197,14 @@ public class Film {
 
     public void setTournages(List<Tourner> tournages) {
         this.tournages = tournages;
+    }
+
+    public List<Realisateur> getRealisateur() {
+        return realisateur;
+    }
+
+    public void setRealisateur(List<Realisateur> realisateur) {
+        this.realisateur = realisateur;
     }
 
 }
