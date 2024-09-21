@@ -42,4 +42,11 @@ build/
 logs/*
 
 
+## java
+
+mvnw
+mvnw.cmd
+target/
+.mvn
+
 
